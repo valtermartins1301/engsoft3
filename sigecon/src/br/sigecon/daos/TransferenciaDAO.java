@@ -3,20 +3,18 @@ package br.sigecon.daos;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 import br.sigecon.beans.Transferencia;
 
 public class TransferenciaDAO {
-	private EntityManager entityManager;
-	private EntityManagerFactory factory;
+	private EntityManagerFactory emf;
 	
 	public TransferenciaDAO(){
-		factory = Persistence.createEntityManagerFactory("persist");
-		entityManager = factory.createEntityManager();
+		emf = PersistenceManager.getIstance().getEntityManagerFactory();
 	}
 	
 	public void merge(Transferencia transferencia){
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
@@ -39,11 +37,11 @@ public class TransferenciaDAO {
 			}
 		} finally {			
 			entityManager.close();
-			factory.close();			
 		}
 	}
 	
 	public void persist(Transferencia transferencia) {
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
@@ -57,23 +55,23 @@ public class TransferenciaDAO {
 			}	
 		} finally {
 			entityManager.close();
-			factory.close();			
 		}
 	}
 	
 	public void remove(int id) {
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
 				transaction.begin();
 				Transferencia transferencia = entityManager.find(Transferencia.class, id);
-				transferencia.setCodLancamento(transferencia.getCodLancamento());
-				transferencia.setContaCorrente(transferencia.getContaCorrente());
-				transferencia.setContaDestino(transferencia.getContaDestino());
-				transferencia.setDataLancamento(transferencia.getDataLancamento());
-				transferencia.setMotivoLancamento(transferencia.getMotivoLancamento());
-				transferencia.setTipoLancamento(transferencia.getTipoLancamento());
-				transferencia.setValorLancamento(transferencia.getValorLancamento());
+//				transferencia.setCodLancamento(transferencia.getCodLancamento());
+//				transferencia.setContaCorrente(transferencia.getContaCorrente());
+//				transferencia.setContaDestino(transferencia.getContaDestino());
+//				transferencia.setDataLancamento(transferencia.getDataLancamento());
+//				transferencia.setMotivoLancamento(transferencia.getMotivoLancamento());
+//				transferencia.setTipoLancamento(transferencia.getTipoLancamento());
+//				transferencia.setValorLancamento(transferencia.getValorLancamento());
 				
 				entityManager.remove(transferencia);
 				transaction.commit();
@@ -84,11 +82,11 @@ public class TransferenciaDAO {
 			}
 		} finally {
 			entityManager.close();
-			factory.close();	
 		}
 	}
 	
 	public Transferencia buscarTransferenciaPeloId(int id) {
+		EntityManager entityManager = emf.createEntityManager();
 		Transferencia transferencia = null;
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
@@ -112,9 +110,7 @@ public class TransferenciaDAO {
 			}
 		} finally {
 			entityManager.close();
-			factory.close();	
 		}		
 		return transferencia;
 	}
-
 }

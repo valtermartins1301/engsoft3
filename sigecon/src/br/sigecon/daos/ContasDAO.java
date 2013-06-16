@@ -1,23 +1,22 @@
 package br.sigecon.daos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import br.sigecon.beans.Conta;
 import br.sigecon.beans.ContaCorrente;
 import br.sigecon.beans.Lancamento;
 
 public class ContasDAO {
-	private EntityManager entityManager;
-	private EntityManagerFactory factory;
+	private EntityManagerFactory emf;
 	
 	public ContasDAO() {
-		factory = Persistence.createEntityManagerFactory("persist");
-		entityManager = factory.createEntityManager();
+		emf = PersistenceManager.getIstance().getEntityManagerFactory();
 	}
 	
 	public ArrayList<Lancamento> consultarLancamento(Conta conta) {
@@ -32,7 +31,17 @@ public class ContasDAO {
 		return null;
 	}
 	
+	public List<Conta> listAll() {
+		EntityManager entityManager = emf.createEntityManager();
+		try {
+			return entityManager.createQuery("from Conta", Conta.class).getResultList();
+		} finally {
+			entityManager.close();
+		}
+	}
+	
 	public void merge(Conta conta) {
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
@@ -52,11 +61,11 @@ public class ContasDAO {
 			}
 		} finally {			
 			entityManager.close();
-			factory.close();			
 		}
 	}
 	
 	public void persist(Conta conta) {
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
@@ -78,44 +87,20 @@ public class ContasDAO {
 			}	
 		} finally {
 			entityManager.close();
-			factory.close();			
 		}
 	}
 	
 	public void remove(Conta conta) {
-		try {
-			EntityTransaction transaction = entityManager.getTransaction();
-			try {
-				transaction.begin();
-				entityManager.remove(conta);
-				transaction.commit();
-			} finally {
-				if (transaction.isActive()) {
-					transaction.rollback();
-				}
-			}
-		} finally {
-			entityManager.close();
-			factory.close();	
-		}
-	}
-	
-	public ContaCorrente buscarContaPeloId(int id) {
-		ContaCorrente contaCorrente = null;
+		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
 				transaction.begin();
 				
-				contaCorrente = entityManager.find(ContaCorrente.class, id);	
-				contaCorrente.setCodConta(contaCorrente.getCodConta());
-				contaCorrente.setBanco(contaCorrente.getBanco());
-				contaCorrente.setPessoa(contaCorrente.getPessoa());
-				contaCorrente.setNumeroConta(contaCorrente.getNumeroConta());
-				contaCorrente.setNumeroAgencia(contaCorrente.getNumeroAgencia());
-
-//				entityManager.remove(contaCorrente);
-			
+				conta = entityManager.find(Conta.class, conta.getCodConta());
+				
+				entityManager.remove(conta);
+				
 				transaction.commit();
 			} finally {
 				if (transaction.isActive()) {
@@ -124,8 +109,20 @@ public class ContasDAO {
 			}
 		} finally {
 			entityManager.close();
-			factory.close();	
-		}		
+		}
+	}
+	
+	public ContaCorrente buscarContaPeloId(int id) {
+		EntityManager entityManager = emf.createEntityManager();
+		ContaCorrente contaCorrente = null;
+			try {				
+				Query query = entityManager.createQuery("select c from ContaCorrente c where c.codConta = :id");
+				query.setParameter("id", id);
+				
+				contaCorrente = (ContaCorrente) query.getSingleResult();
+			} finally {
+				entityManager.close();
+			}
 		return contaCorrente;
 	}
 }
