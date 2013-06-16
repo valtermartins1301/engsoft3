@@ -1,133 +1,48 @@
 package br.sigecon.util;
 
-import java.util.Date;
-
 import br.sigecon.beans.Banco;
 import br.sigecon.beans.Conta;
 import br.sigecon.beans.ContaCorrente;
-import br.sigecon.beans.Lancamento;
 import br.sigecon.beans.Pessoa;
-import br.sigecon.beans.TipoLancamento;
-import br.sigecon.beans.Transferencia;
 import br.sigecon.daos.ContasDAO;
-import br.sigecon.daos.TransferenciaDAO;
 
 public class Main {
 	public static void main(String[] args) {
+//		EntityManagerFactory factory = Persistence.createEntityManagerFactory("persist");
+//		EntityManager entityManager = factory.createEntityManager();
+//		EntityTransaction transaction = entityManager.getTransaction();
+		
+//		transaction.begin();
 
-//----------Adiciona Conta-----------------------------
-//		Banco banco = new Banco();
-//		banco.setCodBanco(1);
-//		
-//		Pessoa pesssoa = new Pessoa();
-//		pesssoa.setCodPessoa(1);		
-//		
-//		ContaCorrente contaCorrente = new ContaCorrente();
-//		contaCorrente.setBanco(banco);
-//		contaCorrente.setPessoa(pesssoa);
-//		contaCorrente.setNumeroConta(51222);
-//		contaCorrente.setNumeroAgencia(4451233);
-//	
-//		ContasDAO dao = new ContasDAO();
-//		dao.persist(contaCorrente);
+		Banco banco = new Banco();
+		banco.setCodBanco(1);
 		
-//----------Edita Conta-----------------------------
-//		Banco banco = new Banco();
-//		banco.setCodBanco(1);
-//		
-//		Pessoa pesssoa = new Pessoa();
-//		pesssoa.setCodPessoa(1);		
-//		
-//		ContaCorrente contaCorrente = new ContaCorrente();
-//		contaCorrente.setCodConta(5);
-//		contaCorrente.setBanco(banco);
-//		contaCorrente.setPessoa(pesssoa);
-//		contaCorrente.setNumeroConta(51222);
-//		contaCorrente.setNumeroAgencia(433);
-//	
-//		ContasDAO dao = new ContasDAO();
-//		dao.merge(contaCorrente);
+		Pessoa pesssoa = new Pessoa();
+		pesssoa.setCodPessoa(1);		
 		
-//----------Remove Conta-----------------------------
-		
-//		Banco banco = new Banco();
-//		banco.setCodBanco(1);
-//		
-//		Pessoa pesssoa = new Pessoa();
-//		pesssoa.setCodPessoa(1);		
-//		
-//		ContaCorrente contaCorrente = new ContaCorrente();
-//		contaCorrente.setCodConta(5);
-//		contaCorrente.setBanco(banco);
-//		contaCorrente.setPessoa(pesssoa);
-//		contaCorrente.setNumeroConta(51222);
-//		contaCorrente.setNumeroAgencia(433);
+		ContaCorrente contaCorrente = new ContaCorrente();
+		contaCorrente.setCodConta(9);
+		contaCorrente.setBanco(banco);
+		contaCorrente.setPessoa(pesssoa);
+		contaCorrente.setNumeroConta(567);
+		contaCorrente.setNumeroAgencia(4451);
 	
 		ContasDAO dao = new ContasDAO();
-		ContaCorrente contaCorrente = dao.buscarContaPeloId(1);
-		dao.remove(contaCorrente);
 		
-//----------Adiciona Transferencia-------------------
-//		ContaCorrente conta = new ContaCorrente();
-//		conta.setCodConta(1);
-//		TipoLancamento tipo = new TipoLancamento();
-//		tipo.setCodLancamento(2);
-//					
+//		Conta conta = dao.buscarContaPeloId(9);
+//		dao.remove(conta);
+		
+		dao.persist(contaCorrente);
+		
 //		Transferencia transferencia = new Transferencia();
-//		transferencia.setContaCorrente(conta);
-//		transferencia.setContaDestino(conta);
+//		transferencia.setContaCorrente(entityManager.find(ContaCorrente.class, 8));
+//		transferencia.setContaDestino(entityManager.find(ContaCorrente.class, 8));
 //		transferencia.setDataLancamento(new Date());
-//		transferencia.setTipoLancamento(tipo);
+//		transferencia.setTipoLancamento(entityManager.find(TipoLancamento.class, 1));
 //		transferencia.setMotivoLancamento("teste");
-//		transferencia.setValorLancamento(1000000L);
-//	
-//		TransferenciaDAO dao = new TransferenciaDAO();
-//		dao.persist(transferencia);
-		
-//----------Edita Transferencia-------------------
-//		ContaCorrente conta = new ContaCorrente();
-//		conta.setCodConta(1);
-//		TipoLancamento tipo = new TipoLancamento();
-//		tipo.setCodLancamento(2);
-//					
-//		Transferencia transferencia = new Transferencia();
-//		transferencia.setCodLancamento(3);
-//		transferencia.setContaCorrente(conta);
-//		transferencia.setContaDestino(conta);
-//		transferencia.setDataLancamento(new Date());
-//		transferencia.setTipoLancamento(tipo);
-//		transferencia.setMotivoLancamento("teste");
-//		transferencia.setValorLancamento(123450L);
+//		transferencia.setValorLancamento(100L);
 //		
-//		TransferenciaDAO dao = new TransferenciaDAO();
-//		dao.merge(transferencia);
-		
-//----------Remove Transferencia-------------------		
-//		int id = 3;
-//		TransferenciaDAO dao = new TransferenciaDAO();
-//		dao.remove(id);
-//
-//		
-		
-//		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//		entityManager.persist(transferencia);
+//		entityManager.persist(transferencia);
 		
 //		ContaCorrente contaCorrente = entityManager.find(ContaCorrente.class, 8);
 //		Lancamento lancamento = entityManager.find(Lancamento.class, 4);
