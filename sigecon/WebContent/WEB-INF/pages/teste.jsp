@@ -38,7 +38,7 @@ function doAjaxPost() {
  				<c:forEach var="conta" items="${contas}">
 		        	<tbody>
 			            <tr>
-				            <td>${conta.pessoa.nomePessoa}</td>
+				            <td>${conta.banco.nomeBanco}</td>
 				            <td>${conta.numeroAgencia}</td>
 				            <td>${conta.numeroConta}</td>
 				            <td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a><a class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></a></td>
