@@ -1,10 +1,11 @@
 <body>
     <div class="well well-large" align="justify">
-	    <h3 align="center">Gerenciamento de Contas</h1>
+	    <h3 align="center">Gerenciamento de Contas</h3>
+	    <br/>
 	    <div align="justify">
-	       <table class="table table-with-borderradius">
+	       <table class="table table-with-borderradius" >
 	         <thead>
-	           <tr>
+	           <tr align="center">
 	             <th>Banco</th>
 	             <th>Agência</th>
 	             <th>Conta</th>
@@ -29,14 +30,14 @@
 	    </div>
     </div>
     <form name="cadastro_conta">
-	    <select>
-	        <option>Banco</option><selected>
+	    <select style="height:40px;font-size:13pt;" class="input-large">
+	        <option disabled selected style='display:none;'>Banco</option><selected>
 			<option>Banco1</option>
 			<option>Banco2</option>
 			<option>Banco3</option>
 		</select> 
-	    <input class="input-large" type="text" placeholder="Agência">
-	    <input class="input-large" type="text" placeholder="Conta">
+	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Agência">
+	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Conta">
 		<a class="btn btn-success" href="#"><i class="icon-plus icon-white"></i></a>
 	</form>
 </body>
