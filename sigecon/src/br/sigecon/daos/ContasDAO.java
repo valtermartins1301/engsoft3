@@ -88,7 +88,6 @@ public class ContasDAO {
 			try {
 				transaction.begin();
 				entityManager.remove(conta);
-			
 				transaction.commit();
 			} finally {
 				if (transaction.isActive()) {
@@ -115,7 +114,7 @@ public class ContasDAO {
 				contaCorrente.setNumeroConta(contaCorrente.getNumeroConta());
 				contaCorrente.setNumeroAgencia(contaCorrente.getNumeroAgencia());
 
-				entityManager.remove(contaCorrente);
+//				entityManager.remove(contaCorrente);
 			
 				transaction.commit();
 			} finally {
