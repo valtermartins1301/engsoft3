@@ -24,3 +24,5 @@ create table lancamentos (id serial primary key, id_conta_corrente int reference
 id_tipo_lancamento int references tipos_lancamentos(id), motivo varchar(100) not null, valor float not null);
 
 create table transferencias (id_conta_destino int references contas_correntes(id), id int references lancamentos(id) primary key);
+
+create table contas_lancamentos (id_conta_corrente int references contas_correntes(id), id_lancamento int references lancamentos(id));
