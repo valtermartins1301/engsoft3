@@ -14,7 +14,7 @@
     		<button class="btn">Bancos</button>
 		</div>
 		<div class="btn-group">
-    		<button class="btn" onclick="location.href='contas.jsp'">Contas</button>
+    		<button class="btn" onclick="location.href='listagem'">Contas</button>
 		</div>
 		<div class="btn-group">
     		<button class="btn">Consultas</button>

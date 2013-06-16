@@ -28,7 +28,7 @@ public class ContasController {
 		model.addAttribute("contas", contas);
 		model.addAttribute("bancos", bancos);
 		
-		return "teste";
+		return "contas";
 	}
 	
 	@RequestMapping(value="cadastrar", method = RequestMethod.POST)

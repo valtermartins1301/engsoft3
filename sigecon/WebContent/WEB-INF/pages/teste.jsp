@@ -49,13 +49,13 @@ function doAjaxPost() {
 	    </div>
     </div>
     <form name="cadastro_conta">
-	    <select id="banco">
+	    <select id="banco" style="height:40px;font-size:13pt;">
 	    	<c:forEach var="banco" items="${bancos}">
 		        <option>${banco.nomeBanco}</option>   	
 	    	</c:forEach>
 		</select> 
-	    <input class="input-large" type="text" placeholder="Agência" id="numeroAgencia"/>
-	    <input class="input-large" type="text" placeholder="Conta" id="numeroConta"/>
+	    <input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Agência" id="numeroAgencia"/>
+	    <input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Conta" id="numeroConta"/>
 <!-- 	    <button class="btn btn-success" onclick="doAjaxPost()"><i class="icon-plus icon-white"></i></button> -->
 	    <input type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
 <!-- 	    <a class="btn btn-success" href="#" onclick="" id="cadastrar"><i class="icon-plus icon-white"></i></a> -->
