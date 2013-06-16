@@ -1,11 +1,10 @@
 <body>
     <div class="well well-large" align="justify">
-	    <h3 align="center">Gerenciamento de Contas</h3>
-	    <br/>
+	    <h3 align="center">Gerenciamento de Contas</h1>
 	    <div align="justify">
-	       <table class="table table-with-borderradius" >
+	       <table class="table table-with-borderradius">
 	         <thead>
-	           <tr align="center">
+	           <tr>
 	             <th>Banco</th>
 	             <th>Agência</th>
 	             <th>Conta</th>
@@ -30,14 +29,16 @@
 	    </div>
     </div>
     <form name="cadastro_conta">
-	    <select style="height:40px;font-size:13pt;" class="input-large">
-	        <option disabled selected style='display:none;'>Banco</option><selected>
+	    <select>
+	        <option>Banco</option><selected>
 			<option>Banco1</option>
 			<option>Banco2</option>
 			<option>Banco3</option>
 		</select> 
-	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Agência">
-	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Conta">
-		<a class="btn btn-success" href="#"><i class="icon-plus icon-white"></i></a>
+	    <input class="input-large" type="text" placeholder="Agência">
+	    <input class="input-large" type="text" placeholder="Conta">
+	    <tr><td colspan="2"><div id="info" style="color: green;"></div></td></tr>
+	    
+		<a class="btn btn-success" href="/contas.jsp"><i class="icon-plus icon-white"></i>Link</a>
 	</form>
 </body>
