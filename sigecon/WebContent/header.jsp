@@ -2,10 +2,10 @@
 <head>
 	<title>Bootstrap 101 Template</title>
 	<!-- Bootstrap -->
-	<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-	<a style="float: left;" class="btn btn-primary" href="index.jsp">Voltar</a>
-	<a style="float: right;" class="btn btn-primary" href="#">Sair</a>
-	<br/><br/>
+	<link href=/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+	<span class="badge"><a href="index.jsp">Voltar</a></span>
+	<span class="badge"><a>Sair</a></span>
 	<div align="center">
 		<div class="btn-group">
     		<button class="btn">Bancos</button>
@@ -17,9 +17,8 @@
     		<button class="btn">Consultas</button>
 		</div>
 		<div class="btn-group">
-    		<button class="btn" onclick="location.href='lancamentos.jsp'">Lançamentos</button>
+    		<button class="btn">Lançamentos</button>
 		</div>
 	</div>
 	<hr>
-</head>
 <div align="center">
