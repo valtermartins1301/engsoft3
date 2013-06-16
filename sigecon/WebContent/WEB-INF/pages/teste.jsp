@@ -23,10 +23,6 @@ function doAjaxPost() {
 <body>
  	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  	
- 	<c:forEach var="texto" items="textos">
- 		${texto}<br/>
- 	</c:forEach>
- 	
     <div class="well well-large" align="justify">
 	    <h3 align="center">Gerenciamento de Contas</h1>
 	    <div align="justify">
@@ -39,33 +35,31 @@ function doAjaxPost() {
 	             <th>Opções</th>
 	             </tr>
 	         </thead>
-	         <tbody>
-	            <tr>
-		            <td>Teste1</td>
-		            <td>Mark</td>
-		            <td>Otto</td>
-		            <td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a><a class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></a></td>
-	            </tr>
-	            <tr>
-		            <td>Teste2</td>
-		            <td>Jacob</td>
-		            <td>Thornton</td>
-		            <td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a><a class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></a></td>
-	            </tr>
-	            	</tbody>
-	            </table>
+ 				<c:forEach var="conta" items="${contas}">
+		        	<tbody>
+			            <tr>
+				            <td>${conta.pessoa.nomePessoa}</td>
+				            <td>${conta.numeroAgencia}</td>
+				            <td>${conta.numeroConta}</td>
+				            <td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a><a class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></a></td>
+			            </tr>
+		            </tbody>
+ 				</c:forEach>
+	    	</table>
 	    </div>
     </div>
     <form name="cadastro_conta">
 	    <select id="banco">
-	        <option>Banco</option><selected>
-			<option>Banco1</option>
-			<option>Banco2</option>
-			<option>Banco3</option>
+	    	<c:forEach var="banco" items="${bancos}">
+		        <option>${banco.nomeBanco}</option>   	
+	    	</c:forEach>
 		</select> 
 	    <input class="input-large" type="text" placeholder="Agência" id="numeroAgencia"/>
-	    <input class="input-large" type="text" placeholder="Conta" id="numeroConta"/> </td></tr> <a class="btn btn-success" onclick="doAjaxPost()" href=""><i class="icon-plus icon-white"></i></a>
+	    <input class="input-large" type="text" placeholder="Conta" id="numeroConta"/>
+<!-- 	    <button class="btn btn-success" onclick="doAjaxPost()"><i class="icon-plus icon-white"></i></button> -->
+	    <input type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
+<!-- 	    <a class="btn btn-success" href="#" onclick="" id="cadastrar"><i class="icon-plus icon-white"></i></a> -->
+	    <tr><td colspan="2"><div id="info" style="color: green;"></td></tr> 
 	    </div>
-	    <tr><td colspan="2"><div id="info" style="color: green;">
 	</form>
 </body>

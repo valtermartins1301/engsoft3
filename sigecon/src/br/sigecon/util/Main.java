@@ -1,10 +1,14 @@
 package br.sigecon.util;
 
+import java.util.List;
+
 import br.sigecon.beans.Banco;
 import br.sigecon.beans.Conta;
 import br.sigecon.beans.ContaCorrente;
 import br.sigecon.beans.Pessoa;
+import br.sigecon.beans.Transferencia;
 import br.sigecon.daos.ContasDAO;
+import br.sigecon.daos.TransferenciaDAO;
 
 public class Main {
 	public static void main(String[] args) {
@@ -14,25 +18,24 @@ public class Main {
 		
 //		transaction.begin();
 
-		Banco banco = new Banco();
-		banco.setCodBanco(1);
+//		Banco banco = new Banco();
+//		banco.setCodBanco(1);
+//		
+//		Pessoa pesssoa = new Pessoa();
+//		pesssoa.setCodPessoa(1);		
+//		
+//		ContaCorrente contaCorrente = new ContaCorrente();
+//		contaCorrente.setCodConta(9);
+//		contaCorrente.setBanco(banco);
+//		contaCorrente.setPessoa(pesssoa);
+//		contaCorrente.setNumeroConta(567);
+//		contaCorrente.setNumeroAgencia(4451);
+//	
 		
-		Pessoa pesssoa = new Pessoa();
-		pesssoa.setCodPessoa(1);		
-		
-		ContaCorrente contaCorrente = new ContaCorrente();
-		contaCorrente.setCodConta(9);
-		contaCorrente.setBanco(banco);
-		contaCorrente.setPessoa(pesssoa);
-		contaCorrente.setNumeroConta(567);
-		contaCorrente.setNumeroAgencia(4451);
-	
-		ContasDAO dao = new ContasDAO();
-		
-//		Conta conta = dao.buscarContaPeloId(9);
+//		Conta conta = dao.buscarContaPeloId(2);
 //		dao.remove(conta);
-		
-		dao.persist(contaCorrente);
+//		
+//		dao.persist(contaCorrente);
 		
 //		Transferencia transferencia = new Transferencia();
 //		transferencia.setContaCorrente(entityManager.find(ContaCorrente.class, 8));

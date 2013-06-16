@@ -3,6 +3,8 @@
 	<title>Bootstrap 101 Template</title>
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 	<span class="badge"><a href="index.jsp">Voltar</a></span>
 	<span class="badge"><a>Sair</a></span>
