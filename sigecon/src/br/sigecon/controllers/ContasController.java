@@ -20,7 +20,7 @@ import br.sigecon.daos.PessoaDAO;
 
 @Controller
 public class ContasController {
-	@RequestMapping(value = "listagem")
+	@RequestMapping(value = "listagemContas")
 	public String listar(Model model) {
 		ContasDAO contasDAO = new ContasDAO();
 		List<Conta> contas = contasDAO.listAll();
@@ -34,7 +34,7 @@ public class ContasController {
 		return "contas";
 	}
 	
-	@RequestMapping(value="cadastrar", method = RequestMethod.POST)
+	@RequestMapping(value="cadastrarConta", method = RequestMethod.POST)
 	public @ResponseBody String cadastrar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
 			BancoDAO bancoDAO = new BancoDAO();
@@ -50,6 +50,32 @@ public class ContasController {
 			contasDAO.persist(conta);
 		}
 		
-		return conta.getNumeroAgencia() + " - " + conta.getNumeroConta();
+		return "";
+	}
+	
+	@RequestMapping(value="editarConta", method = RequestMethod.POST)
+	public @ResponseBody String editar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
+		if (!result.hasErrors()) {
+			BancoDAO bancoDAO = new BancoDAO();
+			Banco banco = bancoDAO.buscarBancoPeloId(idBanco);
+			
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			Pessoa pessoa = pessoaDAO.buscarPessoaPeloId(1);
+						
+			conta.setBanco(banco);
+			conta.setPessoa(pessoa);
+			
+			ContasDAO contasDAO = new ContasDAO();
+			contasDAO.merge(conta);
+		}
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "excluirConta", method = RequestMethod.POST)
+	public @ResponseBody String excluir(@RequestParam("idConta") int idConta) {
+			ContasDAO contasDAO = new ContasDAO();
+			contasDAO.remove(idConta);
+		return "";
 	}
 }

@@ -90,14 +90,14 @@ public class ContasDAO {
 		}
 	}
 	
-	public void remove(Conta conta) {
+	public void remove(int id) {
 		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
 				transaction.begin();
 				
-				conta = entityManager.find(Conta.class, conta.getCodConta());
+				Conta conta = entityManager.find(Conta.class, id);
 				
 				entityManager.remove(conta);
 				

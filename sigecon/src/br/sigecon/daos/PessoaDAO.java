@@ -17,7 +17,7 @@ public class PessoaDAO {
 		EntityManager entityManager = emf.createEntityManager();
 		Pessoa pessoa = null;
 			try {				
-				Query query = entityManager.createQuery("select p from Pessoa p where p.codBanco = :id");
+				Query query = entityManager.createQuery("select p from Pessoa p where p.codPessoa = :id");
 				query.setParameter("id", id);
 				
 				pessoa = (Pessoa) query.getSingleResult();
