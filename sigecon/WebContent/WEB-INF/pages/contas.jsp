@@ -3,11 +3,12 @@ function doAjaxPost() {
 	  // get the form values  
 	  var agencia = $('#numeroAgencia').val();
 	  var conta = $('#numeroConta').val();
+	  var banco = $('#idBanco').val();
 	   
 	  $.ajax({  
 	    type: "POST",  
 	    url: "cadastrar",  
-	    data: "numeroAgencia=" + agencia + "&numeroConta=" + conta,  
+	    data: "idBanco=" + banco + "&numeroAgencia=" + agencia + "&numeroConta=" + conta,  
 	    success: function(response){  
 	      // we have the response  
 	      $('#info').html(response);
