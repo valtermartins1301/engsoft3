@@ -88,7 +88,7 @@ public class TransferenciaDAO {
 		}
 	}
 	
-	public Transferencia buscarContaPeloId(int id) {
+	public Transferencia buscarTransferenciaPeloId(int id) {
 		Transferencia transferencia = null;
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();

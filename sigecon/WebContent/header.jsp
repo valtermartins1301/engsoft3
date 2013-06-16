@@ -2,7 +2,7 @@
 <head>
 	<title>Bootstrap 101 Template</title>
 	<!-- Bootstrap -->
-	<link href=/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 	<span class="badge"><a href="index.jsp">Voltar</a></span>
 	<span class="badge"><a>Sair</a></span>
