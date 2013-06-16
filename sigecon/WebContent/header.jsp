@@ -6,8 +6,9 @@
 	<script type="text/javascript"
     src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
-	<span class="badge"><a href="index.jsp">Voltar</a></span>
-	<span class="badge"><a>Sair</a></span>
+	<a style="float: left;" class="btn btn-primary" href="index.jsp">Voltar</a>
+	<a style="float: right;" class="btn btn-primary" href="#">Sair</a>
+	<br/><br/>
 	<div align="center">
 		<div class="btn-group">
     		<button class="btn">Bancos</button>
@@ -19,7 +20,7 @@
     		<button class="btn">Consultas</button>
 		</div>
 		<div class="btn-group">
-    		<button class="btn">Lançamentos</button>
+    		<button class="btn" onclick="location.href='lancamentos.jsp'">Lançamentos</button>
 		</div>
 	</div>
 	<hr>
