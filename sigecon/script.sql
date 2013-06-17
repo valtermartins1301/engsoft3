@@ -12,8 +12,6 @@ insert into tipos_lancamentos (tipo_lancamento) values ('Saída');
 
 create table pessoas(id serial primary key, nome_pessoa varchar(50) not null, cpf int not null, senha varchar(30) not null);
 insert into pessoas(nome_pessoa, cpf, senha) values ('Usuario 1', 123456789, '123456');
-insert into pessoas(nome_pessoa, cpf, senha) values ('Usuario 2', 123896879, 'teste');
-insert into pessoas(nome_pessoa, cpf, senha) values ('Usuario 3', 123456789, 'teste78789');
 
 create table contas (id serial primary key, id_banco int references bancos(id), 
 numero_conta int not null, numero_agencia int not null, id_pessoa int references pessoas(id));
