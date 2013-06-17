@@ -1,21 +1,20 @@
 <script type="text/javascript">
 function doAjaxPost() {
-	  // get the form values  
-	  var agencia = $('#numeroAgencia').val();
-	  var conta = $('#numeroConta').val();
-	  var banco = $('#idBanco').val();
-	   
+	  var numeroAgencia = $('#numeroAgencia').val();
+	  var numeroConta = $('#numeroConta').val();
+	  var comboBancos = $('#comboBancos');
+	  var idBanco = comboBancos.val();
+	  var nomeBanco = comboBancos.find('option').filter(':selected').text();
+	  
 	  $.ajax({  
 	    type: "POST",  
 	    url: "cadastrarConta",  
-	    data: "idBanco=" + banco + "&numeroAgencia=" + agencia + "&numeroConta=" + conta,  
+	    data: "idBanco=" + idBanco + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
 	    success: function(response){  
-	      // we have the response  
-	      $('#info').html(response);
 	      $('#agencia').val('');
 	      $('#conta').val('');
 	      
-	      Adicionar(agencia, conta, banco);
+	      Adicionar(nomeBanco, numeroAgencia, numeroConta);
 	    },  
 	    error: function(e){  
 	      alert('Error: ' + e);  
@@ -23,24 +22,18 @@ function doAjaxPost() {
 	  });
 	}
 	
-function Adicionar(agencia, conta, banco){
+function Adicionar(nomeBanco, numeroAgencia, numeroConta){
     $("#tabelaContas tbody").append(
         "<tr>"+
-        "<td></td>"+
-        "<td>" + agencia + "</td>"+
-        "<td>" + conta + "</td>"+
+        "<td>" + nomeBanco + "</td>"+
+        "<td>" + numeroAgencia + "</td>"+
+        "<td>" + numeroConta + "</td>"+
         "<td>" + "<a class='btn btn-primary' href='#'><i class='icon-chevron-right icon-white'></i></a>"
 //         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>" 
  		+ "<input type='button' class='btn btn-danger btnExcluir' value='Excluir' />"
     	+"</td>"+
         "</tr>");
 };
-
-
-// $("#tabelaContas .btnExcluir").on("click", function() {
-// 	var par = $(this).parent().parent(); //tr
-//     par.remove();	
-// });
 
 function Excluir(){
 	  var $this = $(this);
@@ -99,7 +92,7 @@ $(function(){
 	    </div>
     </div>
     <form name="cadastro_conta">
-	    <select id="idBanco" style="height:40px;font-size:13pt;">
+	    <select id="comboBancos" style="height:40px;font-size:13pt;">
 	    	<c:forEach var="banco" items="${bancos}">
 		        <option value="${banco.codBanco}">${banco.nomeBanco}</option>
 	    	</c:forEach>
@@ -107,6 +100,6 @@ $(function(){
 	   	<input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Agência" id="numeroAgencia"/>
 	    <input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Conta" id="numeroConta"/>
 		<input id="btnCadastrar" type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
-<!-- 		<button class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
+<!-- 		<button class="btn btn-success" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
 </body>
