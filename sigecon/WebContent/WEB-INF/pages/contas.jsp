@@ -10,7 +10,7 @@ function doAjaxPost() {
 	    type: "POST",  
 	    url: "cadastrarConta",  
 	    data: "idBanco=" + idBanco + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
-	    success: function(response){  
+	    success: function(response) {
 	      $('#agencia').val('');
 	      $('#conta').val('');
 	      
@@ -22,7 +22,7 @@ function doAjaxPost() {
 	  });
 	}
 	
-function Adicionar(nomeBanco, numeroAgencia, numeroConta){
+function Adicionar(nomeBanco, numeroAgencia, numeroConta, idConta){
     $("#tabelaContas tbody").append(
         "<tr>"+
         "<td>" + nomeBanco + "</td>"+
@@ -30,9 +30,12 @@ function Adicionar(nomeBanco, numeroAgencia, numeroConta){
         "<td>" + numeroConta + "</td>"+
         "<td>" + "<a class='btn btn-primary' href='#'><i class='icon-chevron-right icon-white'></i></a>"
 //         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>" 
- 		+ "<input type='button' class='btn btn-danger btnExcluir' value='Excluir' />"
+ 		+ "<input type='button' class='btn btn-danger btnExcluir' value='Excluir' />" 
+//  		+ "<input type='hidden' name='idConta' value='"+ idConta + "' />" 
     	+"</td>"+
         "</tr>");
+    
+//     	$(".btnExcluir").on("click", Excluir);
 };
 
 function Excluir(){
@@ -56,6 +59,7 @@ function Excluir(){
 
 $(function(){
 	$(".btnExcluir").on("click", Excluir);
+	$("#btnCadastrar").on("click", doAjaxPost);
 });
 
 </script>
@@ -99,7 +103,7 @@ $(function(){
 		</select>
 	   	<input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Agência" id="numeroAgencia"/>
 	    <input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Conta" id="numeroConta"/>
-		<input id="btnCadastrar" type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
+		<input id="btnCadastrar" type="button" class="btn btn-success" value="Cadastrar"/>
 <!-- 		<button class="btn btn-success" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
 </body>
