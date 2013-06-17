@@ -1,9 +1,12 @@
 package br.sigecon.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import br.sigecon.beans.Conta;
 import br.sigecon.beans.Transferencia;
 
 public class TransferenciaDAO {
@@ -11,6 +14,15 @@ public class TransferenciaDAO {
 	
 	public TransferenciaDAO(){
 		emf = PersistenceManager.getIstance().getEntityManagerFactory();
+	}
+	
+	public List<Transferencia> listAll() {
+		EntityManager entityManager = emf.createEntityManager();
+		try {
+			return entityManager.createQuery("from Transferencia", Transferencia.class).getResultList();
+		} finally {
+			entityManager.close();
+		}
 	}
 	
 	public void merge(Transferencia transferencia){

@@ -20,7 +20,7 @@
     		<button class="btn">Consultas</button>
 		</div>
 		<div class="btn-group">
-    		<button class="btn" onclick="location.href='lancamentos.jsp'">Lançamentos</button>
+    		<button class="btn" onclick="location.href='listagemTransferencias'">Lançamentos</button>
 		</div>
 	</div>
 	<hr>
