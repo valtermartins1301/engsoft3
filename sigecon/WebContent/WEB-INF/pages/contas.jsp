@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
 function doAjaxPost() {
 	  var numeroAgencia = $('#numeroAgencia').val();
@@ -28,14 +29,32 @@ function Adicionar(nomeBanco, numeroAgencia, numeroConta, idConta){
         "<td>" + nomeBanco + "</td>"+
         "<td>" + numeroAgencia + "</td>"+
         "<td>" + numeroConta + "</td>"+
-        "<td>" + "<a class='btn btn-primary' href='#'><i class='icon-chevron-right icon-white'></i></a>"
-//         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>" 
+        "<td>" + 
+//         "<a class='btn btn-primary btnEditar' href='#'><i class='icon-chevron-right icon-white'></i></a>"
+//         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>"
+		  "<input type='button' class='btn btn-primary btnEditar' value='Editar' />"
  		+ "<input type='button' class='btn btn-danger btnExcluir' value='Excluir' />" 
 //  		+ "<input type='hidden' name='idConta' value='"+ idConta + "' />" 
     	+"</td>"+
         "</tr>");
     
-//     	$(".btnExcluir").on("click", Excluir);
+    	$(".btnExcluir").on("click", Excluir);
+};
+
+function Editar() {
+	 var par = $(this).parent().parent(); //tr
+	 var tdBanco = par.children("td:nth-child(1)");
+	 var tdNumeroAgencia = par.children("td:nth-child(2)");
+	 var tdNumeroConta = par.children("td:nth-child(3)");
+	 var tdOpcoes = par.children("td:nth-child(4)");
+	 
+	 tdBanco.html("<select id='comboBancos' style='height:40px;font-size:13pt;'><c:forEach var='banco' items='${bancos}'><option value='${banco.codBanco}'>${banco.nomeBanco}</option></c:forEach></select>");
+	 tdNumeroAgencia.html("<input type='text' style='height:40px;font-size:13pt;' id='txtTelefone' value='"+tdNumeroAgencia.html()+"'/>");
+	 tdNumeroConta.html("<input type='text' style='height:40px;font-size:13pt;' id='txtEmail' value='"+tdNumeroConta.html()+"'/>");
+	 tdOpcoes.html("<input type='button' class='btn btn-primary btnEditar' value='Editar' /><input type='button' class='btn btn-danger btnExcluir' value='Excluir' />");
+	 
+	 $(".btnEditar").on("click", Editar);
+	 $(".btnExcluir").on("click", Excluir);
 };
 
 function Excluir(){
@@ -59,12 +78,12 @@ function Excluir(){
 
 $(function(){
 	$(".btnExcluir").on("click", Excluir);
+	 $(".btnEditar").on("click", Editar);
 	$("#btnCadastrar").on("click", doAjaxPost);
 });
 
 </script>
 <body>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
     <div class="well well-large" align="justify">
 	    <h3 align="center">Gerenciamento de Contas</h1>
@@ -84,7 +103,9 @@ $(function(){
 						<td>${conta.banco.nomeBanco}</td>
 						<td>${conta.numeroAgencia}</td>
 						<td>${conta.numeroConta}</td>
-						<td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a> 
+						<td>
+<!-- 						<a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a>  -->
+							<input type='button' class='btn btn-primary btnEditar' value='Editar' />	
 						<!-- 				       <a class="btn btn-danger" href="#" onclick="Excluir()"><i class="icon-minus icon-white"></i></a> -->
 						<input type="button" class="btn btn-danger btnExcluir" value="Excluir" />
 						<input type="hidden" name="idConta" value="${conta.codConta}" /> 
