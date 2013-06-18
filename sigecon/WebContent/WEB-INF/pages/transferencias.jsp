@@ -115,7 +115,9 @@ $(function(){
 		            <td>${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</td>
 		            <td>${transferencia.contaDestino.banco.nomeBanco} - ${transferencia.contaDestino.numeroAgencia} - ${transferencia.contaDestino.numeroConta}</td>
 		            <td>${transferencia.valorLancamento}</td>
-		            <td><a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a><a class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></a></td>
+		            <td><input type='button' class='btn btn-primary btnEditar' style="font-weight: bold;" value='>' />
+		            <input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" /></td>
+	            	
 	            </tr>
 	            </c:forEach>
 	            	</tbody>
@@ -138,7 +140,7 @@ $(function(){
 			</c:forEach>
 		</select> 
 	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Valor" id="valor">
-		<input id="btnCadastrar" type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
+		<input id="btnCadastrar" type="button" class="btn btn-success" style="font-weight: bold;font-size:15pt;" value="+"/>
 <!-- 		<button class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
 </body>

@@ -32,8 +32,8 @@ function Adicionar(nomeBanco, numeroAgencia, numeroConta, idConta){
         "<td>" + 
 //         "<a class='btn btn-primary btnEditar' href='#'><i class='icon-chevron-right icon-white'></i></a>"
 //         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>"
-		  "<input type='button' class='btn btn-primary btnEditar' value='>' />"
- 		+ "<input type='button' class='btn btn-danger btnExcluir' value='-' />" 
+		  "<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='>' />"
+ 		+ "<input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />" 
 //  		+ "<input type='hidden' name='idConta' value='"+ idConta + "' />" 
     	+"</td>"+
         "</tr>");
@@ -51,7 +51,7 @@ function Editar() {
 	 tdBanco.html("<select id='comboBancos' style='height:40px;font-size:13pt;'><c:forEach var='banco' items='${bancos}'><option value='${banco.codBanco}'>${banco.nomeBanco}</option></c:forEach></select>");
 	 tdNumeroAgencia.html("<input type='text' style='height:40px;font-size:13pt;' id='txtTelefone' value='"+tdNumeroAgencia.html()+"'/>");
 	 tdNumeroConta.html("<input type='text' style='height:40px;font-size:13pt;' id='txtEmail' value='"+tdNumeroConta.html()+"'/>");
-	 tdOpcoes.html("<input type='button' class='btn btn-primary btnEditar' value='+' /><input type='button' class='btn btn-danger btnExcluir' value='-' />");
+	 tdOpcoes.html("<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='+' /><input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />");
 	 
 	 $(".btnEditar").on("click", Editar);
 	 $(".btnExcluir").on("click", Excluir);
@@ -106,9 +106,9 @@ $(function(){
 						<td>${conta.numeroConta}</td>
 						<td>
 <!-- 						<a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a>  -->
-							<input type='button' class='btn btn-primary btnEditar' value='>' />	
+							<input type='button' class='btn btn-primary btnEditar' style="font-weight: bold;" value='>' />	
 						<!-- 				       <a class="btn btn-danger" href="#" onclick="Excluir()"><i class="icon-minus icon-white"></i></a> -->
-						<input type="button" class="btn btn-danger btnExcluir" value="-" />
+						<input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" />
 						<input type="hidden" name="idConta" value="${conta.codConta}" /> 
 						</td>
 					</tr>
@@ -125,7 +125,7 @@ $(function(){
 		</select>
 	   	<input class="input-large inputagencia" style="height:40px;font-size:13pt;" type="number" placeholder="Agência" maxlength="8" id="numeroAgencia"/>
 	    <input class="input-large inputconta" style="height:40px;font-size:13pt;" type="number" placeholder="Conta" maxlength="8" id="numeroConta"/>
-		<input id="btnCadastrar" type="button" class="btn btn-success" value="+"/>
+		<input id="btnCadastrar" type="button" class="btn btn-success" style="font-weight: bold;font-size:15pt;" value="+"/>
 <!-- 		<button class="btn btn-success" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
 </body>
