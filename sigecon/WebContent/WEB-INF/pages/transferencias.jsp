@@ -71,6 +71,8 @@ function Excluir(){
 
 $(function(){
 	$(".btnExcluir").on("click", Excluir);
+	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});});
+    $(document).ready(function(){$('#data').mask('99/99/9999');
 });
 
 </script>
@@ -121,8 +123,8 @@ $(function(){
 	    </div>
     </div>
     <form name="cadastro_transferencia">
-        <input style="height:40px;font-size:13pt;" class="input-large" type="date" placeholder="Data">
-	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo">
+       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="data">
+	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50">
 	     <select style="height:40px;font-size:13pt;" class="input-large" >
 	        <option id="contaOrigem" disabled selected style='display:none;'>Conta Origem</option><selected>
 			<c:forEach var="transferencia" items="${transferencias}">
@@ -135,7 +137,7 @@ $(function(){
 			<option value="${transferencia.contaCorrente.codConta}">${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</option>
 			</c:forEach>
 		</select> 
-	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="number" placeholder="Valor">
+	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Valor" id="valor">
 		<input id="btnCadastrar" type="button" class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"/>
 <!-- 		<button class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>

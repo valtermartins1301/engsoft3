@@ -75,11 +75,12 @@ function Excluir(){
 	    }  
 	  });
 };
-
 $(function(){
 	$(".btnExcluir").on("click", Excluir);
-	 $(".btnEditar").on("click", Editar);
+	$(".btnEditar").on("click", Editar);
 	$("#btnCadastrar").on("click", doAjaxPost);
+	$('.inputagencia').numberMask({beforePoint:8});
+	$('.inputconta').numberMask({beforePoint:8});
 });
 
 </script>
@@ -122,8 +123,8 @@ $(function(){
 		        <option value="${banco.codBanco}">${banco.nomeBanco}</option>
 	    	</c:forEach>
 		</select>
-	   	<input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Agência" id="numeroAgencia"/>
-	    <input class="input-large" style="height:40px;font-size:13pt;" type="text" placeholder="Conta" id="numeroConta"/>
+	   	<input class="input-large inputagencia" style="height:40px;font-size:13pt;" type="number" placeholder="Agência" maxlength="8" id="numeroAgencia"/>
+	    <input class="input-large inputconta" style="height:40px;font-size:13pt;" type="number" placeholder="Conta" maxlength="8" id="numeroConta"/>
 		<input id="btnCadastrar" type="button" class="btn btn-success" value="Cadastrar"/>
 <!-- 		<button class="btn btn-success" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
