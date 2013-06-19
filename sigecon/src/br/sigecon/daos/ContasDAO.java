@@ -64,7 +64,7 @@ public class ContasDAO {
 		}
 	}
 	
-	public void persist(Conta conta) {
+	public int persist(Conta conta) {
 		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
@@ -78,6 +78,7 @@ public class ContasDAO {
 				contaCorrente.setNumeroAgencia(conta.getNumeroAgencia());
 
 				entityManager.persist(contaCorrente);
+				conta.setCodConta(contaCorrente.getCodConta());
 				
 				transaction.commit();
 			} finally {
@@ -88,6 +89,8 @@ public class ContasDAO {
 		} finally {
 			entityManager.close();
 		}
+		
+		return conta.getCodConta();
 	}
 	
 	public void remove(int id) {

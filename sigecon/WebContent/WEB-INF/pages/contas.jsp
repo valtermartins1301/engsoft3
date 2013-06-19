@@ -25,18 +25,15 @@ function doAjaxPost() {
 	
 function Adicionar(nomeBanco, numeroAgencia, numeroConta, idConta){
     $("#tabelaContas tbody").append(
-        "<tr>"+
-        "<td>" + nomeBanco + "</td>"+
-        "<td>" + numeroAgencia + "</td>"+
-        "<td>" + numeroConta + "</td>"+
-        "<td>" + 
-//         "<a class='btn btn-primary btnEditar' href='#'><i class='icon-chevron-right icon-white'></i></a>"
-//         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>"
-		  "<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='>' />"
+        "<tr>"
+        + "<td>" + nomeBanco + "</td>"
+        + "<td>" + numeroAgencia + "</td>"
+        + "<td>" + numeroConta + "</td>"
+        + "<td>" 
+        + "<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='>' />"
  		+ "<input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />" 
-//  		+ "<input type='hidden' name='idConta' value='"+ idConta + "' />" 
-    	+"</td>"+
-        "</tr>");
+    	+ "</td>"
+    	+ "</tr>");
     
     	$(".btnExcluir").on("click", Excluir);
 };
@@ -85,7 +82,6 @@ $(function(){
 
 </script>
 <body>
-    
     <div class="well well-large" align="justify">
 	    <h3 align="center">Gerenciamento de Contas</h1>
 	    <div align="justify">
@@ -105,11 +101,9 @@ $(function(){
 						<td>${conta.numeroAgencia}</td>
 						<td>${conta.numeroConta}</td>
 						<td>
-<!-- 						<a class="btn btn-primary" href="#"><i class="icon-chevron-right icon-white"></i></a>  -->
 							<input type='button' class='btn btn-primary btnEditar' style="font-weight: bold;" value='>' />	
-						<!-- 				       <a class="btn btn-danger" href="#" onclick="Excluir()"><i class="icon-minus icon-white"></i></a> -->
-						<input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" />
-						<input type="hidden" name="idConta" value="${conta.codConta}" /> 
+							<input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" />
+							<input type="hidden" name="idConta" value="${conta.codConta}" /> 
 						</td>
 					</tr>
 				</c:forEach>
@@ -126,6 +120,5 @@ $(function(){
 	   	<input class="input-large inputagencia" style="height:40px;font-size:13pt;" type="number" placeholder="Agência" maxlength="8" id="numeroAgencia"/>
 	    <input class="input-large inputconta" style="height:40px;font-size:13pt;" type="number" placeholder="Conta" maxlength="8" id="numeroConta"/>
 		<input id="btnCadastrar" type="button" class="btn btn-success" style="font-weight: bold;font-size:15pt;" value="+"/>
-<!-- 		<button class="btn btn-success" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
 	</form>
 </body>

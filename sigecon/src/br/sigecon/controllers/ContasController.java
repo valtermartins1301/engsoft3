@@ -47,10 +47,10 @@ public class ContasController {
 			conta.setPessoa(pessoa);
 			
 			ContasDAO contasDAO = new ContasDAO();
-			contasDAO.persist(conta);
+			conta.setCodConta(contasDAO.persist(conta));
 		}
 		
-		return "";
+		return conta.getCodConta() + "";
 	}
 	
 	@RequestMapping(value="editarConta", method = RequestMethod.POST)
@@ -76,6 +76,6 @@ public class ContasController {
 	public @ResponseBody String excluir(@RequestParam("idConta") int idConta) {
 			ContasDAO contasDAO = new ContasDAO();
 			contasDAO.remove(idConta);
-		return "";
+		return "sucesso";
 	}
 }
