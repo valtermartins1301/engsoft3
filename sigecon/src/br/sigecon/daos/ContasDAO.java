@@ -98,13 +98,15 @@ public class ContasDAO {
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
-				transaction.begin();
-				
 				Conta conta = entityManager.find(Conta.class, id);
 				
-				entityManager.remove(conta);
-				
-				transaction.commit();
+				if (conta != null) {
+					transaction.begin();
+					
+					entityManager.remove(conta);					
+
+					transaction.commit();
+				}
 			} finally {
 				if (transaction.isActive()) {
 					transaction.rollback();
