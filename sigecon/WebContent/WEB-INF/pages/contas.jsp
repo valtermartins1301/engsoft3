@@ -110,7 +110,7 @@ $(function(){
 						<td>${conta.numeroAgencia}</td>
 						<td>${conta.numeroConta}</td>
 						<td>
-							<span id="editar_${conta.codConta}"><input type='button' class='btn btn-primary btnEditar' id="${conta.codConta}" onclick="habilitarCampos(this.id)" style="font-weight: bold;" value='>' /></span>	
+							<span id="editar_${conta.codConta}"><input type='button' class='btn btn-primary btnEditar' id="${conta.codConta}" onclick="habilitarCampos(this.id)" style="font-weight: bold;font-size:15pt;" value='>' /></span>	
 							<span id="excluir"><input type="button" class="btn btn-danger btnExcluir" id="${conta.codConta}" onclick="excluir(this.id)" style="font-weight: bold;font-size:15pt;" value="-" /></span>
 						</td>
 					</tr>
