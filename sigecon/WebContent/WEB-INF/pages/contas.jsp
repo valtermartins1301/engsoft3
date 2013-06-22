@@ -48,10 +48,13 @@ function habilitarCampos() {
 	 var tdNumeroConta = par.children("td:nth-child(3)");
 	 var tdOpcoes = par.children("td:nth-child(4)");
 	 
+	 var hidden = $(this).parent().find('input[name="idConta"]');
+	 var idConta = hidden.val();
+	 
 	 tdBanco.html("<select id='comboBancos' style='height:40px;font-size:13pt;'><c:forEach var='banco' items='${bancos}'><option value='${banco.codBanco}'>${banco.nomeBanco}</option></c:forEach></select>");
 	 tdNumeroAgencia.html("<input type='text' style='height:40px;font-size:13pt;' id='txtTelefone' value='"+tdNumeroAgencia.html()+"'/>");
 	 tdNumeroConta.html("<input type='text' style='height:40px;font-size:13pt;' id='txtEmail' value='"+tdNumeroConta.html()+"'/>");
-	 tdOpcoes.html("<input type='button' class='btn btn-primary btnSalvar' style='font-weight: bold;font-size:15pt;' value='+' /><input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />");
+	 tdOpcoes.html("<input type='button' class='btn btn-primary btnSalvar' style='font-weight: bold;font-size:15pt;' value='+' /><input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' /><input type='hidden' name='idConta' value='" + idConta + "' />");
 	 
 	 $(".btnSalvar").on("click", Editar);
 	 $(".btnExcluir").on("click", Excluir);
