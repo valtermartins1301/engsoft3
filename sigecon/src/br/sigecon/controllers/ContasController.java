@@ -35,7 +35,7 @@ public class ContasController {
 	}
 	
 	@RequestMapping(value="salvaConta", method = RequestMethod.POST)
-	public @ResponseBody String cadastrar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
+	public @ResponseBody String salvaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
 			BancoDAO bancoDAO = new BancoDAO();
 			Banco banco = bancoDAO.buscarBancoPeloId(idBanco);
@@ -47,14 +47,14 @@ public class ContasController {
 			conta.setPessoa(pessoa);
 			
 			ContasDAO contasDAO = new ContasDAO();
-			conta.setCodConta(contasDAO.persist(conta));
+			contasDAO.persist(conta);
 		}
 		
-		return conta.getCodConta() + "";
+		return "";
 	}
 	
 	@RequestMapping(value="editaConta", method = RequestMethod.POST)
-	public @ResponseBody String editar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
+	public @ResponseBody String editaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
 			BancoDAO bancoDAO = new BancoDAO();
 			Banco banco = bancoDAO.buscarBancoPeloId(idBanco);
@@ -73,7 +73,7 @@ public class ContasController {
 	}
 	
 	@RequestMapping(value = "excluiConta", method = RequestMethod.POST)
-	public @ResponseBody String excluir(@RequestParam("idConta") int idConta) {
+	public @ResponseBody String excluiConta(@RequestParam("idConta") int idConta) {
 			ContasDAO contasDAO = new ContasDAO();
 			contasDAO.remove(idConta);
 		return "sucesso";
