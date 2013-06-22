@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
-import br.sigecon.beans.Conta;
 import br.sigecon.beans.Transferencia;
 
 public class TransferenciaDAO {
@@ -32,15 +31,14 @@ public class TransferenciaDAO {
 			try {
 				transaction.begin();
 				
-				entityManager.find(Transferencia.class, transferencia.getCodLancamento());
-				transferencia.setContaCorrente(transferencia.getContaCorrente());
-				transferencia.setContaDestino(transferencia.getContaDestino());
-				transferencia.setDataLancamento(transferencia.getDataLancamento());
-				transferencia.setMotivoLancamento(transferencia.getMotivoLancamento());
-				transferencia.setTipoLancamento(transferencia.getTipoLancamento());
-				transferencia.setValorLancamento(transferencia.getValorLancamento());
+				Transferencia transferenciaEncontrada = entityManager.find(Transferencia.class, transferencia.getCodLancamento());
+				transferenciaEncontrada.setContaCorrente(transferencia.getContaCorrente());
+				transferenciaEncontrada.setContaDestino(transferencia.getContaDestino());
+				transferenciaEncontrada.setDataLancamento(transferencia.getDataLancamento());
+				transferenciaEncontrada.setMotivoLancamento(transferencia.getMotivoLancamento());
+				transferenciaEncontrada.setTipoLancamento(transferencia.getTipoLancamento());
+				transferenciaEncontrada.setValorLancamento(transferencia.getValorLancamento());
 				
-				entityManager.merge(transferencia);
 				transaction.commit();
 			} finally {
 				if (transaction.isActive()) {

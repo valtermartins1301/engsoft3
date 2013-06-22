@@ -1,7 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-function doAjaxPost() {
-	  // get the form values  
+function adicionar() {
 	  var data = $('#dataLancamento').val();
 	  var motivo = $('#motivoLancamento').val();
 	  var contaOrigem = $('#contaOrigem');
@@ -9,25 +9,14 @@ function doAjaxPost() {
 	  var contaDestino = $('#contaDestino');
 	  var idContaDestino = contaDestino.val();
 	  var valor = $('#valor').val();
-	  var nomeContaOrigem = contaOrigem.find('option').filter(':selected').text();
-	  var nomeContaDestino = contaOrigem.find('option').filter(':selected').text();
 	  	  
 	  $.ajax({  
 	    type: "POST",  
-	    url: "cadastraTransferencia",  
-	    data: "dataLancamento=" + data + "&motivoLancamento=" + motivo + "&contaOrigem=" + idContaOrigem + "&contaDestino=" + idContaDestino
-	    + "&valorLancamento=" + valor,  
+	    url: "salvaTransferencia",  
+	    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
+	    + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
 	    success: function(response){  
-	      // we have the response  
-// 	      alert('confirm');
-	      $('#info').html(response);
-	      $('#dataLancamento').val('');
-	      $('#motivoLancamento').val('');
-	      $('#contaOrigem').val('');
-	      $('#contaDestino').val('');
-	      $('#valor').val('');	      
-	      
-	      Adicionar(data, motivo, nomeContaOrigem, nomeContaDestino, valor, response);
+	      window.location = "listagemTransferencias";
 	      alert("Registro salvo com sucesso!");
 	    },  
 	    error: function(e){
@@ -36,62 +25,88 @@ function doAjaxPost() {
 	    }  
 	  });
 	}
+
+function habilitarCampos(id) {
+	var contador = 0;
+	$("#linha_" + id).find('td').each(function() {
+		var value = $(this).text();
+		
+		if (contador == 0) {
+			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' placeholder='Data' type='date' maxlength='8' id='dataLancamento' value='" + value + "'/>");			
+		} else if (contador == 1) {
+			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Motivo' maxlength='50' id='motivoLancamento' value='" + value + "'/>");
+		} else if (contador == 2) {
+			$(this).html("<select id='contaOrigem2' style='height:40px;font-size:13pt;' class='input-large'></select>");
+		} else if (contador == 3) {
+			$(this).html("<select id='contaDestino2' style='height:40px;font-size:13pt;' class='input-large'></select>");
+		} else if (contador == 4) {
+			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Valor' id='valor' value='" + value + "'/>");
+		}
+		contador++;
+	});
+
 	
-function Adicionar(data, motivo, nomeContaOrigem, nomeContaDestino, valor, idTransferencia){
-    $("#tabelaTransferencias tbody").append(
-        "<tr>"+
-        "<td>" + data + "</td>"+
-        "<td>" + motivo + "</td>"+
-        "<td>" + nomeContaOrigem + "</td>"+
-        "<td>" + nomeContaDestino + "</td>"+
-        "<td>" + valor + "</td>"
-        + "<td>" 
-        + "<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='>' />"
- 		+ "<input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />" 
- 		+ "<input type='hidden' name='idConta' value='" + idTransferencia + "' />"
- 		+"</td>"+
-        "</tr>");
-};
-
-
-function habilitarCampos() {
+	$('#data').mask('99/99/9999');
 	
+	$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
+	$('#contaDestino').find('option').clone().appendTo('#contaDestino2');
+	$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
 };
 
-function Editar() {
-	 
+function editar(id) {
+	var data; 
+	var motivo;
+	var idContaOrigem;
+	var idContaDestino;
+	var valor;
+	
+	data = $("#linha_" + id).find('input[type="date"]').val();
+ 
+	var contador = 0;
+	$("#linha_" + id).find('input[type="text"]').each(function() {
+		if (contador == 0) {
+			motivo = $(this).val();
+		} else if (contador == 1) {
+			valor = $(this).val();
+		}
+		contador++;
+	});
+	idContaOrigem = $("#contaOrigem2").val();
+	idContaDestino = $("#contaDestino2").val();
+
+	$.ajax({  
+	    type: "POST",  
+	    url: "editaTransferencia",  
+	    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
+	    + "&codLancamento=" + id + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
+	    success: function(response){  
+	      window.location = "listagemTransferencias";
+	      alert("Registro editado com sucesso!");
+	    }  
+	  });
 };
 
-function Excluir(){
+function excluir(id) {
 	if (confirm("Realmente deseja excluir?")) {
-	  var $this = $(this);
-	  var hidden = $this.parent().find('input[name="idTransferencia"]');
-	  var idTransferencia = hidden.val();
-	   
 	  $.ajax({  
 	    type: "POST",  
 	    url: "excluiTransferencia",  
-	    data: "idTransferencia=" + idTransferencia,
-	    success: function(response){  
-			var par = $this.parent().parent(); //tr
-		    par.remove();
-	    },  
-	    error: function(e){  
-	      alert('Error: ' + e);  
+	    data: "idTransferencia=" + id,
+	    success: function(response) {  
+	    	window.location = "listagemTransferencias";
+			alert("Registro excluído com sucesso!");
 	    }  
-	  })
-	};
-};
+	  });
+	}
+};	
 
     $(function(){
-    	$("#btnCadastrar").on("click", doAjaxPost);
-    	$(".btnExcluir").on("click", Excluir);
-    	$(".btnEditar").on("click", habilitarCampos);
-    	$('.inputagencia').numberMask({beforePoint:8});
-    	$('.inputconta').numberMask({beforePoint:8});
-//     	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});});
-//     	$(document).ready(function(){$('#data').mask('99/99/9999');
+//     	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+
+    		$('#data').mask('99/99/9999');
     });
+    	$(document).ready(function(){
+    	});
     
 </script>
 
@@ -127,41 +142,36 @@ function Excluir(){
 	         </thead>
 	         <tbody>
 	            <c:forEach var="transferencia" items="${transferencias}">
-	            <tr>
-		            <td>${transferencia.dataLancamento}</td>
-		            <td>${transferencia.motivoLancamento}</td>
-		            <td>${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</td>
-		            <td>${transferencia.contaDestino.banco.nomeBanco} - ${transferencia.contaDestino.numeroAgencia} - ${transferencia.contaDestino.numeroConta}</td>
-		            <td>${transferencia.valorLancamento}</td>
-		            <td><input type='button' class='btn btn-primary btnEditar' style="font-weight: bold;" value='>' />
-		            <input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" />
-		            <input type="hidden" name="idTransferencia" value="${transferencia.codLancamento}" />
-		            </td>
-		            
-	            	
-	            </tr>
+		            <tr id="linha_${transferencia.codLancamento}">
+			            <td><fmt:formatDate value="${transferencia.dataLancamento}" type="both" pattern="dd/MM/yyyy" /></td>
+			            <td>${transferencia.motivoLancamento}</td>
+			            <td>${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</td>
+			            <td>${transferencia.contaDestino.banco.nomeBanco} - ${transferencia.contaDestino.numeroAgencia} - ${transferencia.contaDestino.numeroConta}</td>
+			            <td>${transferencia.valorLancamento}</td>
+			            <td>
+			            	<span id="editar_${transferencia.codLancamento}"><input type="button" class="btn btn-primary" id="${transferencia.codLancamento}" onclick="habilitarCampos(this.id)" style="font-weight: bold;" value=">" /></span>
+			            	<span id="excluir"><input type="button" class="btn btn-danger" id="${transferencia.codLancamento}" onclick="excluir(this.id)" style="font-weight: bold;font-size:15pt;" value="-" /></span>
+			            </td>
+		            </tr>
 	            </c:forEach>
-	            	</tbody>
-	            </table>
+	         </tbody>
+	       </table>
 	    </div>
     </div>
     <form name="cadastro_transferencia">
        <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="dataLancamento">
 	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50" id="motivoLancamento">
-	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large" >
-	        <option disabled selected style='display:none;'>Conta Origem</option><selected>
-			<c:forEach var="transferencia" items="${transferencias}">
-			<option value="${transferencia.contaCorrente.codConta}">${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</option>
-			</c:forEach>			
+	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large">
+			<c:forEach var="conta" items="${contas}">
+				<option value="${conta.codConta}">${conta.banco.nomeBanco} - ${conta.numeroAgencia} - ${conta.numeroConta}</option>
+			</c:forEach>
 		</select> 
 	    <select id="contaDestino" style="height:40px;font-size:13pt;" class="input-large">
-	        <option disabled selected style='display:none;'>Conta Destino</option><selected>
-			<c:forEach var="transferencia" items="${transferencias}">
-			<option value="${transferencia.contaCorrente.codConta}">${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</option>
+			<c:forEach var="conta" items="${contas}">
+				<option value="${conta.codConta}">${conta.banco.nomeBanco} - ${conta.numeroAgencia} - ${conta.numeroConta}</option>
 			</c:forEach>
 		</select> 
 	    <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Valor" id="valor">
-		<input id="btnCadastrar" type="button" class="btn btn-success" style="font-weight: bold;font-size:15pt;" value="+"/>
-<!-- 		<button class="btn btn-success" onclick="doAjaxPost()" value="Cadastrar"><i class="icon-plus icon-white"></i></button> -->
+		<input type="button" class="btn btn-success" onclick="adicionar()" style="font-weight: bold;font-size:15pt;" value="+"/>
 	</form>
 </body>
