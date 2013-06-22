@@ -1,64 +1,77 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
 function doAjaxPost() {
 	  // get the form values  
 	  var data = $('#dataLancamento').val();
 	  var motivo = $('#motivoLancamento').val();
-	  var contaOrigem = $('#idContaOrigem').val();
-	  var contaDestino = $('#idContaDestino').val();
-	  var valor = $('#valorLancamento').val();
-	   
+	  var contaOrigem = $('#contaOrigem');
+	  var idContaOrigem = contaOrigem.val();
+	  var contaDestino = $('#contaDestino');
+	  var idContaDestino = contaDestino.val();
+	  var valor = $('#valor').val();
+	  var nomeContaOrigem = contaOrigem.find('option').filter(':selected').text();
+	  var nomeContaDestino = contaOrigem.find('option').filter(':selected').text();
+	  	  
 	  $.ajax({  
 	    type: "POST",  
-	    url: "cadastrarTransferencia",  
-	    data: "dataLancamento=" + data + "&motivoLancamento=" + motivo + "&idContaOrigem=" + contaOrigem + "&idContaDestino=" + contaDestino
+	    url: "cadastraTransferencia",  
+	    data: "dataLancamento=" + data + "&motivoLancamento=" + motivo + "&contaOrigem=" + idContaOrigem + "&contaDestino=" + idContaDestino
 	    + "&valorLancamento=" + valor,  
 	    success: function(response){  
 	      // we have the response  
+// 	      alert('confirm');
 	      $('#info').html(response);
 	      $('#dataLancamento').val('');
 	      $('#motivoLancamento').val('');
-	      $('#idContaOrigem').val('');
-	      $('#idcontaDestino').val('');
-	      $('#valorLancamento').val('');	      
+	      $('#contaOrigem').val('');
+	      $('#contaDestino').val('');
+	      $('#valor').val('');	      
 	      
-	      Adicionar(data, motivo, contaOrigem, contaDestino, valor);
+	      Adicionar(data, motivo, nomeContaOrigem, nomeContaDestino, valor, response);
+	      alert("Registro salvo com sucesso!");
 	    },  
-	    error: function(e){  
+	    error: function(e){
+	    	alert('confirm');
 	      alert('Error: ' + e);  
 	    }  
 	  });
 	}
 	
-function Adicionar(data, motivo, contaOrigem, contaDestino, valor){
+function Adicionar(data, motivo, nomeContaOrigem, nomeContaDestino, valor, idTransferencia){
     $("#tabelaTransferencias tbody").append(
         "<tr>"+
         "<td>" + data + "</td>"+
         "<td>" + motivo + "</td>"+
-        "<td>" + + "</td>"+
-        "<td>" + + "</td>"+
-        "<td>" + valor + "</td>"+
-        "<td>" + "<a class='btn btn-primary' href='#'><i class='icon-chevron-right icon-white'></i></a>"
-//         <a class='btn btn-danger' href='#'><i class='icon-minus icon-white'></i></a>" 
- 		+ "<input type='button' class='btn btn-danger btnExcluir' value='Excluir' />"
-    	+"</td>"+
+        "<td>" + nomeContaOrigem + "</td>"+
+        "<td>" + nomeContaDestino + "</td>"+
+        "<td>" + valor + "</td>"
+        + "<td>" 
+        + "<input type='button' class='btn btn-primary btnEditar' style='font-weight: bold;font-size:15pt;' value='>' />"
+ 		+ "<input type='button' class='btn btn-danger btnExcluir' style='font-weight: bold;font-size:15pt;' value='-' />" 
+ 		+ "<input type='hidden' name='idConta' value='" + idTransferencia + "' />"
+ 		+"</td>"+
         "</tr>");
 };
 
 
-// $("#tabelaContas .btnExcluir").on("click", function() {
-// 	var par = $(this).parent().parent(); //tr
-//     par.remove();	
-// });
+function habilitarCampos() {
+	
+};
+
+function Editar() {
+	 
+};
 
 function Excluir(){
+	if (confirm("Realmente deseja excluir?")) {
 	  var $this = $(this);
-	  var hidden = $this.parent().find('input[name="idConta"]');
-	  var idConta = hidden.val();
+	  var hidden = $this.parent().find('input[name="idTransferencia"]');
+	  var idTransferencia = hidden.val();
 	   
 	  $.ajax({  
 	    type: "POST",  
-	    url: "excluirConta",  
-	    data: "idConta=" + idConta,
+	    url: "excluiTransferencia",  
+	    data: "idTransferencia=" + idTransferencia,
 	    success: function(response){  
 			var par = $this.parent().parent(); //tr
 		    par.remove();
@@ -66,15 +79,20 @@ function Excluir(){
 	    error: function(e){  
 	      alert('Error: ' + e);  
 	    }  
-	  });
+	  })
+	};
 };
 
-$(function(){
-	$(".btnExcluir").on("click", Excluir);
-	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});});
-    $(document).ready(function(){$('#data').mask('99/99/9999');
-});
-
+    $(function(){
+    	$("#btnCadastrar").on("click", doAjaxPost);
+    	$(".btnExcluir").on("click", Excluir);
+    	$(".btnEditar").on("click", habilitarCampos);
+    	$('.inputagencia').numberMask({beforePoint:8});
+    	$('.inputconta').numberMask({beforePoint:8});
+//     	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});});
+//     	$(document).ready(function(){$('#data').mask('99/99/9999');
+    });
+    
 </script>
 
 <body>
@@ -116,7 +134,10 @@ $(function(){
 		            <td>${transferencia.contaDestino.banco.nomeBanco} - ${transferencia.contaDestino.numeroAgencia} - ${transferencia.contaDestino.numeroConta}</td>
 		            <td>${transferencia.valorLancamento}</td>
 		            <td><input type='button' class='btn btn-primary btnEditar' style="font-weight: bold;" value='>' />
-		            <input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" /></td>
+		            <input type="button" class="btn btn-danger btnExcluir" style="font-weight: bold;font-size:15pt;" value="-" />
+		            <input type="hidden" name="idTransferencia" value="${transferencia.codLancamento}" />
+		            </td>
+		            
 	            	
 	            </tr>
 	            </c:forEach>
@@ -125,10 +146,10 @@ $(function(){
 	    </div>
     </div>
     <form name="cadastro_transferencia">
-       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="data">
-	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50">
-	     <select style="height:40px;font-size:13pt;" class="input-large" >
-	        <option id="contaOrigem" disabled selected style='display:none;'>Conta Origem</option><selected>
+       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="dataLancamento">
+	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50" id="motivoLancamento">
+	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large" >
+	        <option disabled selected style='display:none;'>Conta Origem</option><selected>
 			<c:forEach var="transferencia" items="${transferencias}">
 			<option value="${transferencia.contaCorrente.codConta}">${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</option>
 			</c:forEach>			

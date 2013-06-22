@@ -34,7 +34,7 @@ public class ContasController {
 		return "contas";
 	}
 	
-	@RequestMapping(value="cadastrarConta", method = RequestMethod.POST)
+	@RequestMapping(value="salvaConta", method = RequestMethod.POST)
 	public @ResponseBody String cadastrar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
 			BancoDAO bancoDAO = new BancoDAO();
@@ -53,7 +53,7 @@ public class ContasController {
 		return conta.getCodConta() + "";
 	}
 	
-	@RequestMapping(value="editarConta", method = RequestMethod.POST)
+	@RequestMapping(value="editaConta", method = RequestMethod.POST)
 	public @ResponseBody String editar(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
 			BancoDAO bancoDAO = new BancoDAO();
@@ -72,7 +72,7 @@ public class ContasController {
 		return "";
 	}
 	
-	@RequestMapping(value = "excluirConta", method = RequestMethod.POST)
+	@RequestMapping(value = "excluiConta", method = RequestMethod.POST)
 	public @ResponseBody String excluir(@RequestParam("idConta") int idConta) {
 			ContasDAO contasDAO = new ContasDAO();
 			contasDAO.remove(idConta);

@@ -54,7 +54,7 @@ public class ContasDAO {
 				contaCorrente.setNumeroAgencia(conta.getNumeroAgencia());
 				
 				transaction.commit();
-			} finally {
+			}finally {
 				if (transaction.isActive()) {
 					transaction.rollback();
 				}

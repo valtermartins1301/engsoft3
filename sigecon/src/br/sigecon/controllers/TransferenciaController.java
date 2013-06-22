@@ -28,8 +28,8 @@ public class TransferenciaController {
 		return "transferencias";
 	}
 	
-	@RequestMapping(value="cadastrarTransferencia", method = RequestMethod.POST)
-	public @ResponseBody String cadastrar(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
+	@RequestMapping(value="cadastraTransferencia", method = RequestMethod.POST)
+	public @ResponseBody String cadastrar(@RequestParam("contaOrigem") int idContaOrigem, @RequestParam("contaDestino") int idContaDestino,
 			@ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
 		if (!result.hasErrors()) {
 			ContasDAO contaDAO = new ContasDAO();
@@ -43,10 +43,10 @@ public class TransferenciaController {
 			transferenciaDAO.persist(transferencia);
 		}
 		
-		return "";
+		return transferencia.getCodLancamento() + "";
 	}
 	
-	@RequestMapping(value="editarTransferencia", method = RequestMethod.POST)
+	@RequestMapping(value="editaTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String editar(@ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
 		if (!result.hasErrors()) {
 			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
@@ -56,7 +56,7 @@ public class TransferenciaController {
 		return "";
 	}
 	
-	@RequestMapping(value = "excluirTransferencia", method = RequestMethod.POST)
+	@RequestMapping(value = "excluiTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String excluir(@RequestParam("idTransferecia") int idTransferencia) {
 			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
 			transferenciaDAO.remove(idTransferencia);

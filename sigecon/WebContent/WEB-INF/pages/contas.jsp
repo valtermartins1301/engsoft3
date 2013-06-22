@@ -9,7 +9,7 @@ function doAjaxPost() {
 	  
 	  $.ajax({  
 	    type: "POST",  
-	    url: "cadastrarConta",  
+	    url: "salvaConta",  
 	    data: "idBanco=" + idBanco + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
 	    success: function(response) {
 	      $('#agencia').val('');
@@ -77,7 +77,7 @@ function Editar() {
 	  
 	  $.ajax({  
 	    type: "POST",  
-	    url: "editarConta",  
+	    url: "editaConta",  
 	    data: "idBanco=" + idBanco + "&codConta=" + idConta + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
 	    success: function(response) {
 	      
@@ -101,7 +101,7 @@ function Excluir(){
 		   
 		  $.ajax({  
 		    type: "POST",  
-		    url: "excluirConta",  
+		    url: "excluiConta",  
 		    data: "idConta=" + idConta,
 		    success: function(response){  
 				var par = $this.parent().parent(); //tr
