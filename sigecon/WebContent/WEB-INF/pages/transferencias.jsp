@@ -11,10 +11,7 @@ function adicionar() {
 	  $('#valor').data('mask').remove();
 	  var valor = $('#valor').val();
 	  
-	  // Exemplo de validação
-	  if (idContaOrigem == idContaDestino) {
-		  alert("Conta origem e destino não podem ser da mesma conta!");
-	  } else {
+	  if (validarCampos(data, motivo, idContaOrigem, idContaDestino, valor)) {
 		  $.ajax({  
 		    type: "POST",  
 		    url: "salvaTransferencia",  
@@ -23,12 +20,11 @@ function adicionar() {
 		    success: function(response){  
 		      window.location = "listagemTransferencias";
 		      alert("Registro salvo com sucesso!");
-		    },  
-		    error: function(e){
-		      alert('Error: ' + e);  
 		    }  
 		  });
-	  }	  
+	  }	else {
+		  $('#valor').mask('000.000.000.000.000,00',{reverse: true});
+	  }  
 	};
 
 function habilitarCampos(id) {
@@ -50,9 +46,6 @@ function habilitarCampos(id) {
 		contador++;
 	});
 
-	
-	
-	//$('#dataLancamento').mask('00/00/0000');	
 	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	
 	$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
@@ -82,16 +75,20 @@ function editar(id) {
 	idContaOrigem = $("#contaOrigem2").val();
 	idContaDestino = $("#contaDestino2").val();
 
-	$.ajax({  
-	    type: "POST",  
-	    url: "editaTransferencia",  
-	    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
-	    + "&codLancamento=" + id + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
-	    success: function(response){  
-	      window.location = "listagemTransferencias";
-	      alert("Registro editado com sucesso!");
-	    }  
-	  });
+	if (validarCampos(data, motivo, idContaOrigem, idContaDestino, valor)) {
+		$.ajax({  
+		    type: "POST",
+		    url: "editaTransferencia",  
+		    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
+		    + "&codLancamento=" + id + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
+		    success: function(response){  
+		      window.location = "listagemTransferencias";
+		      alert("Registro editado com sucesso!");
+		    }  
+		  });
+	} else {
+		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
+	}
 };
 
 function excluir(id) {
@@ -107,6 +104,33 @@ function excluir(id) {
 	  });
 	}
 };	
+
+function validarCampos(dataLancamento, motivo, idContaOrigem, idContaDestino, valor) {
+	var mensagem = "";
+	
+	if (dataLancamento == "") {
+		mensagem += "O campo data de lançamento não pode estar em branco!\n";
+	}
+	
+	if (motivo == "") {
+		mensagem += "O campo motivo não pode estar em branco!\n";
+	}
+	
+	if (idContaOrigem == idContaDestino) {
+		mensagem += "Conta origem e destino não podem ser iguais!\n";
+	}
+	
+	if (valor == "") {
+		mensagem += "O campo valor não pode estar em branco!\n";
+	}
+	
+	if (mensagem != "") {
+		alert("Os seguintes erros foram encontrados:\n" + mensagem);
+		return false;
+	}
+	
+	return true;
+};
 
 $(document).ready(function(){
 	//$('#dataLancamento').mask('00/00/0000');	

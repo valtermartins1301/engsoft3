@@ -6,15 +6,17 @@ function adicionar() {
 	  var comboBancos = $('#comboBancos');
 	  var idBanco = comboBancos.val();
 
-	  $.ajax({  
-	    type: "POST",  
-	    url: "salvaConta",  
-	    data: "idBanco=" + idBanco + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
-	    success: function(response) {
-		  window.location = "listagemContas";
-	      alert("Registro salvo com sucesso!");
-	    }  
-	  });
+	  if (validarCampos(numeroConta, numeroAgencia)) {
+		  $.ajax({  
+		    type: "POST",  
+		    url: "salvaConta",  
+		    data: "idBanco=" + idBanco + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
+		    success: function(response) {
+			  window.location = "listagemContas";
+		      alert("Registro salvo com sucesso!");
+		    }  
+		  });
+	  }
 	};
 	
 function habilitarCampos(id) {
@@ -39,12 +41,6 @@ function habilitarCampos(id) {
 };
 
 function editar(id) {	 
-	 //Exemplo de validação
-// 	if(!$.trim($('#nome').val()).length){
-// 	    $('#nome').addClass("erroInputVazio"); 
-// 	     mensagemAlerta("Campo Nome em branco","red");
-// 	  }
-	 
 	 	var numeroAgencia; 
 	 	var numeroConta;
 	 	var idBanco;
@@ -59,16 +55,19 @@ function editar(id) {
 			contador++;
 		});
 		idBanco = $("#comboBancos2").val();
-
-	  $.ajax({  
-	    type: "POST",  
-	    url: "editaConta",  
-	    data: "idBanco=" + idBanco + "&codConta=" + id + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
-	    success: function(response) {
-	      window.location = "listagemContas";
-	      alert("Registro editado com sucesso!");
-	    }  
-	  });
+	
+		if (validarCampos(numeroConta, numeroAgencia)) {
+		  $.ajax({  
+		    type: "POST",  
+		    url: "editaConta",  
+		    data: "idBanco=" + idBanco + "&codConta=" + id + "&numeroAgencia=" + numeroAgencia + "&numeroConta=" + numeroConta,  
+		    success: function(response) {
+		      window.location = "listagemContas";
+		      alert("Registro editado com sucesso!");
+		    }  
+		  });			
+		}
+		
 };
 
 function excluir(id){
@@ -83,6 +82,25 @@ function excluir(id){
 		    } 
 		  });
 	  }
+};
+
+function validarCampos(numeroConta, numeroAgencia) {
+	var mensagem = "";
+	
+	if (numeroConta == "") {
+		mensagem = mensagem + "O campo número da conta não pode estar em branco!\n";
+	}
+	
+	if (numeroAgencia == "") {
+		mensagem = mensagem + "O campo número da agência não pode estar em branco!\n";
+	}
+	
+	if (mensagem != "") {
+		alert("Os seguintes erros foram encontrados:\n" + mensagem);
+		return false;
+	}
+	
+	return true;
 };
 
 $(function(){
@@ -125,8 +143,8 @@ $(function(){
 		        <option value="${banco.codBanco}">${banco.nomeBanco}</option>
 	    	</c:forEach>
 		</select>
-	   	<input class="input-large inputagencia" style="height:40px;font-size:13pt;" type="number" placeholder="Agência" maxlength="8" id="numeroAgencia"/>
-	    <input class="input-large inputconta" style="height:40px;font-size:13pt;" type="number" placeholder="Conta" maxlength="8" id="numeroConta"/>
+	   	<input class="input-large inputagencia" style="height:40px;font-size:13pt;" type="text" placeholder="Agência" maxlength="8" id="numeroAgencia"/>
+	    <input class="input-large inputconta" style="height:40px;font-size:13pt;" type="text" placeholder="Conta" maxlength="8" id="numeroConta"/>
 		<input id="btnCadastrar" type="button" class="btn btn-success" onclick="adicionar()" style="font-weight: bold;font-size:15pt;" value="+"/>
 	</form>
 </body>
