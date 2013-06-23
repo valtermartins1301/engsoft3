@@ -32,8 +32,8 @@ function habilitarCampos(id) {
 		contador++;
 		});
 	
-	$('.inputagencia').numberMask({beforePoint:8});
-	$('.inputconta').numberMask({beforePoint:8});
+	$('.inputagencia').mask('00000000');
+	$('.inputconta').mask('00000000');
 	$('#comboBancos').find('option').clone().appendTo('#comboBancos2');
 	$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
 };
@@ -86,8 +86,8 @@ function excluir(id){
 };
 
 $(function(){
-	$('.inputagencia').mask('R$ 00000000');
-	$('.inputconta').mask('R$ 00000000');
+	$('.inputagencia').mask('00000000');
+	$('.inputconta').mask('00000000');
 });
 </script>
 <body>
