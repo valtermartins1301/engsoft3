@@ -8,6 +8,7 @@ function adicionar() {
 	  var idContaOrigem = contaOrigem.val();
 	  var contaDestino = $('#contaDestino');
 	  var idContaDestino = contaDestino.val();
+      $('#valor').data('mask').remove();
 	  var valor = $('#valor').val();
 	  
 	  // Exemplo de validação
@@ -51,7 +52,8 @@ function habilitarCampos(id) {
 	});
 
 	
-	$('#data').mask('99/99/9999');
+	$('#dataLancamento').mask('00/00/0000');	
+	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	
 	$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
 	$('#contaDestino').find('option').clone().appendTo('#contaDestino2');
@@ -105,12 +107,11 @@ function excluir(id) {
 	}
 };	
 
-    $(function(){
-//     	$("#valor").maskMoney({symbol:'R$ ',showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
 
-    		$('#data').mask('99/99/9999');
-    });
     	$(document).ready(function(){
+    		$('#dataLancamento').mask('00/00/0000');	
+    		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
+    		$('.valortransferencia').mask('000.000.000.000.000,00',{reverse: true}); 		
     	});
     
 </script>
@@ -152,7 +153,7 @@ function excluir(id) {
 			            <td>${transferencia.motivoLancamento}</td>
 			            <td>${transferencia.contaCorrente.banco.nomeBanco} - ${transferencia.contaCorrente.numeroAgencia} - ${transferencia.contaCorrente.numeroConta}</td>
 			            <td>${transferencia.contaDestino.banco.nomeBanco} - ${transferencia.contaDestino.numeroAgencia} - ${transferencia.contaDestino.numeroConta}</td>
-			            <td>${transferencia.valorLancamento}</td>
+			            <td class="valortransferencia">${transferencia.valorLancamento}</td>
 			            <td>
 			            	<span id="editar_${transferencia.codLancamento}"><input type="button" class="btn btn-primary" id="${transferencia.codLancamento}" onclick="habilitarCampos(this.id)" style="font-weight: bold;" value=">" /></span>
 			            	<span id="excluir"><input type="button" class="btn btn-danger" id="${transferencia.codLancamento}" onclick="excluir(this.id)" style="font-weight: bold;font-size:15pt;" value="-" /></span>

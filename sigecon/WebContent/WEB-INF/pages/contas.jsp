@@ -86,8 +86,8 @@ function excluir(id){
 };
 
 $(function(){
-	$('.inputagencia').numberMask({beforePoint:8});
-	$('.inputconta').numberMask({beforePoint:8});
+	$('.inputagencia').mask('R$ 00000000');
+	$('.inputconta').mask('R$ 00000000');
 });
 </script>
 <body>

@@ -2,13 +2,13 @@ create table bancos(id serial primary key, nome varchar(50) not null);
 insert into bancos(nome) values ('Santander');
 insert into bancos(nome) values ('Bradesco');
 insert into bancos(nome) values ('Banco do Brasil');
-insert into bancos(nome) values ('ItaÃº');
-insert into bancos(nome) values ('Caixa EconÃ´mica');
+insert into bancos(nome) values ('Itaú');
+insert into bancos(nome) values ('Caixa Econômica');
 insert into bancos(nome) values ('HSBC');
 
 create table tipos_lancamentos (id serial primary key, tipo_lancamento varchar(50) not null);
 insert into tipos_lancamentos (tipo_lancamento) values ('Entrada');
-insert into tipos_lancamentos (tipo_lancamento) values ('SaÃ­da');
+insert into tipos_lancamentos (tipo_lancamento) values ('Saída');
 
 create table pessoas(id serial primary key, nome_pessoa varchar(50) not null, cpf int not null, senha varchar(30) not null);
 insert into pessoas(nome_pessoa, cpf, senha) values ('Usuario 1', 123456789, '123456');
