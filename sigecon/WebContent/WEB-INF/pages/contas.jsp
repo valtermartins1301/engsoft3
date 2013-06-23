@@ -19,25 +19,29 @@ function adicionar() {
 	  }
 	};
 	
+var ativo = 0;
 function habilitarCampos(id) {
-	var contador = 0;
-	$("#linha_" + id).find('td').each(function() {
-		var value = $(this).text();
+	if (ativo == id || ativo == 0) {
+		ativo = id;
+		var contador = 0;
+		$("#linha_" + id).find('td').each(function() {
+			var value = $(this).text();
+			
+			if (contador == 0) {
+				$(this).html("<select id='comboBancos2' style='height:40px;font-size:13pt;'></select>");			
+			} else if (contador == 1) {
+				$(this).html("<input class='input-large inputagencia' type='text' style='height:40px;font-size:13pt;' value='" + value + "'/>");
+			} else if (contador == 2) {
+				$(this).html("<input class='input-large inputconta' type='text' style='height:40px;font-size:13pt;' value='" + value + "'/>");
+			}
+			contador++;
+			});
 		
-		if (contador == 0) {
-			$(this).html("<select id='comboBancos2' style='height:40px;font-size:13pt;'></select>");			
-		} else if (contador == 1) {
-			$(this).html("<input class='input-large inputagencia' type='text' style='height:40px;font-size:13pt;' value='" + value + "'/>");
-		} else if (contador == 2) {
-			$(this).html("<input class='input-large inputconta' type='text' style='height:40px;font-size:13pt;' value='" + value + "'/>");
-		}
-		contador++;
-		});
-	
-	$('.inputagencia').mask('00000000');
-	$('.inputconta').mask('00000000');
-	$('#comboBancos').find('option').clone().appendTo('#comboBancos2');
-	$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
+		$('.inputagencia').mask('00000000');
+		$('.inputconta').mask('00000000');
+		$('#comboBancos').find('option').clone().appendTo('#comboBancos2');
+		$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
+	}
 };
 
 function editar(id) {	 

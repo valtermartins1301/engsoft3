@@ -26,31 +26,36 @@ function adicionar() {
 		  $('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	  }  
 	};
-
-function habilitarCampos(id) {
-	var contador = 0;
-	$("#linha_" + id).find('td').each(function() {
-		var value = $(this).text();
-		
-		if (contador == 0) {
-			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' placeholder='Data' type='date' maxlength='8' id='dataLancamento' value='" + value + "'/>");			
-		} else if (contador == 1) {
-			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Motivo' maxlength='50' id='motivoLancamento' value='" + value + "'/>");
-		} else if (contador == 2) {
-			$(this).html("<select id='contaOrigem2' style='height:40px;font-size:13pt;' class='input-large'></select>");
-		} else if (contador == 3) {
-			$(this).html("<select id='contaDestino2' style='height:40px;font-size:13pt;' class='input-large'></select>");
-		} else if (contador == 4) {
-			$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Valor' id='valor' value='" + value + "'/>");
-		}
-		contador++;
-	});
-
-	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	
-	$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
-	$('#contaDestino').find('option').clone().appendTo('#contaDestino2');
-	$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
+var ativo = 0;
+function habilitarCampos(id) {
+	if (ativo == id || ativo == 0) {
+		ativo = id;
+		
+		var contador = 0;
+		$("#linha_" + id).find('td').each(function() {
+			var value = $(this).text();
+			
+			if (contador == 0) {
+				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' placeholder='Data' type='date' maxlength='8' id='dataLancamento' value='" + value + "'/>");			
+			} else if (contador == 1) {
+				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Motivo' maxlength='50' id='motivoLancamento' value='" + value + "'/>");
+			} else if (contador == 2) {
+				$(this).html("<select id='contaOrigem2' style='height:40px;font-size:13pt;' class='input-large'></select>");
+			} else if (contador == 3) {
+				$(this).html("<select id='contaDestino2' style='height:40px;font-size:13pt;' class='input-large'></select>");
+			} else if (contador == 4) {
+				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Valor' id='valor' value='" + value + "'/>");
+			}
+			contador++;
+		});
+	
+		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
+		
+		$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
+		$('#contaDestino').find('option').clone().appendTo('#contaDestino2');
+		$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
+	}
 };
 
 function editar(id) {
