@@ -1,0 +1,12 @@
+01 - Método confirmarExclusão() não será utilizado em Conta e Transferencia.
+02 - Método consultarLancamentos(), ConsultarSaldo(), FaturaCartaoCredito não serão utilizados.
+03 - O Método listAll() foi adicionado tanto em ContasDAO quanto em TransferenciasDAO para buscar todas as contas e transferencias respectivamente.
+04 - Em TransferenciasController e ContasController foi adicionado um método listar para mandar as contas e transferencias as views.
+05 - nomePessoa na classe Pessoa não é int é String.
+06 - Em uma transferencia a contaCorrente na classe lançamento é considerada como contaOrigem.
+07 - Toda transferencia é considerada como tipo de lançamento igual a "Saída"
+08 - Foi utilizado um usuário padrão com id = 1
+09 - PessoaDAO só implementa o método buscarPessoaPeloId().
+10 - Banco já é pré cadastrado no banco de dados e ele só implementa dois método: listAll() e buscarBancoPeloId();
+11 - TipoLancamentoDAO é pré cadastrado no banco de dados. Só implementa o método buscarTipoLancamentoPeloId();
+12 - TransferenciasController e ContasController está utilizando framework Spring MVC.
