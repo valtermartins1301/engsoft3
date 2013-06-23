@@ -9,22 +9,27 @@ function adicionar() {
 	  var contaDestino = $('#contaDestino');
 	  var idContaDestino = contaDestino.val();
 	  var valor = $('#valor').val();
-	  	  
-	  $.ajax({  
-	    type: "POST",  
-	    url: "salvaTransferencia",  
-	    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
-	    + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
-	    success: function(response){  
-	      window.location = "listagemTransferencias";
-	      alert("Registro salvo com sucesso!");
-	    },  
-	    error: function(e){
-	    	alert('confirm');
-	      alert('Error: ' + e);  
-	    }  
-	  });
-	}
+	  
+	  // Exemplo de validação
+	  if (idContaOrigem == idContaDestino) {
+		  alert("Conta origem e destino não podem ser da mesma conta!");
+	  } else {
+		  $.ajax({  
+		    type: "POST",  
+		    url: "salvaTransferencia",  
+		    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
+		    + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
+		    success: function(response){  
+		      window.location = "listagemTransferencias";
+		      alert("Registro salvo com sucesso!");
+		    },  
+		    error: function(e){
+		    	alert('confirm');
+		      alert('Error: ' + e);  
+		    }  
+		  });
+	  }	  
+	};
 
 function habilitarCampos(id) {
 	var contador = 0;
