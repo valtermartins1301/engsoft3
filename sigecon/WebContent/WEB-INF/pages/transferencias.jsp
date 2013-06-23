@@ -8,7 +8,7 @@ function adicionar() {
 	  var idContaOrigem = contaOrigem.val();
 	  var contaDestino = $('#contaDestino');
 	  var idContaDestino = contaDestino.val();
-      $('#valor').data('mask').remove();
+	  $('#valor').data('mask').remove();
 	  var valor = $('#valor').val();
 	  
 	  // Exemplo de validação
@@ -25,7 +25,6 @@ function adicionar() {
 		      alert("Registro salvo com sucesso!");
 		    },  
 		    error: function(e){
-		    	alert('confirm');
 		      alert('Error: ' + e);  
 		    }  
 		  });
@@ -52,7 +51,8 @@ function habilitarCampos(id) {
 	});
 
 	
-	$('#dataLancamento').mask('00/00/0000');	
+	
+	//$('#dataLancamento').mask('00/00/0000');	
 	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	
 	$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
@@ -65,6 +65,7 @@ function editar(id) {
 	var motivo;
 	var idContaOrigem;
 	var idContaDestino;
+	$('#valor').data('mask').remove();
 	var valor;
 	
 	data = $("#linha_" + id).find('input[type="date"]').val();
@@ -107,12 +108,11 @@ function excluir(id) {
 	}
 };	
 
-
-    	$(document).ready(function(){
-    		$('#dataLancamento').mask('00/00/0000');	
-    		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
-    		$('.valortransferencia').mask('000.000.000.000.000,00',{reverse: true}); 		
-    	});
+$(document).ready(function(){
+	//$('#dataLancamento').mask('00/00/0000');	
+	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
+	$('.valortransferencia').mask('000.000.000.000.000,00',{reverse: true}); 		
+});
     
 </script>
 
@@ -165,7 +165,7 @@ function excluir(id) {
 	    </div>
     </div>
     <form name="cadastro_transferencia">
-       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="text" maxlength="8" id="dataLancamento">
+       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="dataLancamento">
 	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50" id="motivoLancamento">
 	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large">
 			<c:forEach var="conta" items="${contas}">
