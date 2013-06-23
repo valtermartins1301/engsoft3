@@ -165,7 +165,7 @@ function excluir(id) {
 	    </div>
     </div>
     <form name="cadastro_transferencia">
-       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="dataLancamento">
+       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="text" maxlength="8" id="dataLancamento">
 	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50" id="motivoLancamento">
 	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large">
 			<c:forEach var="conta" items="${contas}">
