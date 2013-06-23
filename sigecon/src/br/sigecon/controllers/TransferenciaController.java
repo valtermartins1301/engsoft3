@@ -20,14 +20,15 @@ import br.sigecon.daos.ContasDAO;
 import br.sigecon.daos.TipoLancamentoDAO;
 import br.sigecon.daos.TransferenciaDAO;
 import br.sigecon.util.DateUtil;
+import br.sigecon.util.FactoryDAO;
 @Controller
 public class TransferenciaController {
 	@RequestMapping(value = "listagemTransferencias")
 	public String listar(Model model) {
-		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+		TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 		List<Transferencia> transferencias = transferenciaDAO.listAll();
 		
-		ContasDAO contasDAO = new ContasDAO();
+		ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 		List<Conta> contas =  contasDAO.listAll();		
 		
 		model.addAttribute("transferencias", transferencias);
@@ -40,11 +41,11 @@ public class TransferenciaController {
 	public @ResponseBody String salvaTransferencia(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
 			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
 		if (!result.hasErrors()) {
-			ContasDAO contaDAO = new ContasDAO();
+			ContasDAO contaDAO = FactoryDAO.criarContasDAO();
 			ContaCorrente contaOrigem = contaDAO.buscarContaPeloId(idContaOrigem);
 			ContaCorrente contaDestino = contaDAO.buscarContaPeloId(idContaDestino);
 			
-			TipoLancamentoDAO tipoLancamentoDAO = new TipoLancamentoDAO();
+			TipoLancamentoDAO tipoLancamentoDAO = FactoryDAO.criarTipoLancamentoDAO();
 			TipoLancamento tipoLancamento = tipoLancamentoDAO.buscarTipoLancamentoPeloId(2);
 			
 			Date dataLancamento = DateUtil.parseStringToDate(data);
@@ -53,7 +54,7 @@ public class TransferenciaController {
 			transferencia.setContaDestino(contaDestino);
 			transferencia.setTipoLancamento(tipoLancamento);
 	
-			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.persist(transferencia);
 		}
 		return "";
@@ -63,11 +64,11 @@ public class TransferenciaController {
 	public @ResponseBody String editar(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
 			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
 		if (!result.hasErrors()) {
-			ContasDAO contaDAO = new ContasDAO();
+			ContasDAO contaDAO = FactoryDAO.criarContasDAO();
 			ContaCorrente contaOrigem = contaDAO.buscarContaPeloId(idContaOrigem);
 			ContaCorrente contaDestino = contaDAO.buscarContaPeloId(idContaDestino);
 			
-			TipoLancamentoDAO tipoLancamentoDAO = new TipoLancamentoDAO();
+			TipoLancamentoDAO tipoLancamentoDAO = FactoryDAO.criarTipoLancamentoDAO();
 			TipoLancamento tipoLancamento = tipoLancamentoDAO.buscarTipoLancamentoPeloId(2);
 			
 			Date dataLancamento = DateUtil.parseStringToDate(data);
@@ -76,7 +77,7 @@ public class TransferenciaController {
 			transferencia.setContaDestino(contaDestino);
 			transferencia.setTipoLancamento(tipoLancamento);
 			
-			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.merge(transferencia);
 		}
 		return "";
@@ -84,7 +85,7 @@ public class TransferenciaController {
 	
 	@RequestMapping(value = "excluiTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String excluir(@RequestParam("idTransferencia") int idTransferencia) {
-			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.remove(idTransferencia);
 		return "";
 	}

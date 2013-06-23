@@ -17,15 +17,16 @@ import br.sigecon.beans.Pessoa;
 import br.sigecon.daos.BancoDAO;
 import br.sigecon.daos.ContasDAO;
 import br.sigecon.daos.PessoaDAO;
+import br.sigecon.util.FactoryDAO;
 
 @Controller
 public class ContasController {
 	@RequestMapping(value = "listagemContas")
 	public String listar(Model model) {
-		ContasDAO contasDAO = new ContasDAO();
+		ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 		List<Conta> contas = contasDAO.listAll();
 		
-		BancoDAO bancoDAO = new BancoDAO();
+		BancoDAO bancoDAO = FactoryDAO.criarBancoDAO();
 		List<Banco> bancos = bancoDAO.listAll();
 		
 		model.addAttribute("contas", contas);
@@ -37,44 +38,42 @@ public class ContasController {
 	@RequestMapping(value="salvaConta", method = RequestMethod.POST)
 	public @ResponseBody String salvaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
-			BancoDAO bancoDAO = new BancoDAO();
+			BancoDAO bancoDAO = FactoryDAO.criarBancoDAO();
 			Banco banco = bancoDAO.buscarBancoPeloId(idBanco);
 			
-			PessoaDAO pessoaDAO = new PessoaDAO();
+			PessoaDAO pessoaDAO = FactoryDAO.criarPessoaDAO();
 			Pessoa pessoa = pessoaDAO.buscarPessoaPeloId(1);
 						
 			conta.setBanco(banco);
 			conta.setPessoa(pessoa);
 			
-			ContasDAO contasDAO = new ContasDAO();
+			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 			contasDAO.persist(conta);
 		}
-		
 		return "";
 	}
 	
 	@RequestMapping(value="editaConta", method = RequestMethod.POST)
 	public @ResponseBody String editaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
-			BancoDAO bancoDAO = new BancoDAO();
+			BancoDAO bancoDAO = FactoryDAO.criarBancoDAO();
 			Banco banco = bancoDAO.buscarBancoPeloId(idBanco);
 			
-			PessoaDAO pessoaDAO = new PessoaDAO();
+			PessoaDAO pessoaDAO = FactoryDAO.criarPessoaDAO();
 			Pessoa pessoa = pessoaDAO.buscarPessoaPeloId(1);
 						
 			conta.setBanco(banco);
 			conta.setPessoa(pessoa);
 			
-			ContasDAO contasDAO = new ContasDAO();
+			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 			contasDAO.merge(conta);
 		}
-		
 		return "";
 	}
 	
 	@RequestMapping(value = "excluiConta", method = RequestMethod.POST)
 	public @ResponseBody String excluiConta(@RequestParam("idConta") int idConta) {
-			ContasDAO contasDAO = new ContasDAO();
+			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 			contasDAO.remove(idConta);
 		return "sucesso";
 	}
