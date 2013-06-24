@@ -74,7 +74,13 @@ public class ContasController {
 	@RequestMapping(value = "excluiConta", method = RequestMethod.POST)
 	public @ResponseBody String excluiConta(@RequestParam("idConta") int idConta) {
 			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
-			contasDAO.remove(idConta);
+			
+				try {
+					contasDAO.remove(idConta);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "erroAssociacao";
+				}
 		return "sucesso";
 	}
 }

@@ -75,13 +75,6 @@ public class TransferenciaDAO {
 			try {
 				transaction.begin();
 				Transferencia transferencia = entityManager.find(Transferencia.class, id);
-//				transferencia.setCodLancamento(transferencia.getCodLancamento());
-//				transferencia.setContaCorrente(transferencia.getContaCorrente());
-//				transferencia.setContaDestino(transferencia.getContaDestino());
-//				transferencia.setDataLancamento(transferencia.getDataLancamento());
-//				transferencia.setMotivoLancamento(transferencia.getMotivoLancamento());
-//				transferencia.setTipoLancamento(transferencia.getTipoLancamento());
-//				transferencia.setValorLancamento(transferencia.getValorLancamento());
 				
 				entityManager.remove(transferencia);
 				transaction.commit();

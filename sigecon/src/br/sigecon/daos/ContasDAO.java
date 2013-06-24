@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import org.postgresql.util.PSQLException;
+
 import br.sigecon.beans.Conta;
 import br.sigecon.beans.ContaCorrente;
 import br.sigecon.beans.Lancamento;
@@ -90,7 +92,7 @@ public class ContasDAO {
 		}
 	}
 	
-	public void remove(int id) {
+	public void remove(int id) throws PSQLException {
 		EntityManager entityManager = emf.createEntityManager();
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();

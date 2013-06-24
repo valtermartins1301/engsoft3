@@ -80,9 +80,13 @@ function excluir(id){
 		    type: "POST",  
 		    url: "excluiConta",  
 		    data: "idConta=" + id,
-		    success: function(response){  
-				window.location = "listagemContas";
-				alert("Registro excluído com sucesso!");
+		    success: function(response){ 
+		    	if (response == "erroAssociacao") {
+					alert("Não é possível excluir uma conta que está associada a um ou mais lançamentos. Delete os lançamentos associados primeiro.");		    		
+		    	} else if (response == "sucesso") {
+					window.location = "listagemContas";
+					alert("Registro excluído com sucesso!");
+		    	} 
 		    } 
 		  });
 	  }
