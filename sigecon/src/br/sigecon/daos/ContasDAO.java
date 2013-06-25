@@ -1,6 +1,5 @@
 package br.sigecon.daos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,25 +11,12 @@ import org.postgresql.util.PSQLException;
 
 import br.sigecon.beans.Conta;
 import br.sigecon.beans.ContaCorrente;
-import br.sigecon.beans.Lancamento;
 
 public class ContasDAO {
 	private EntityManagerFactory emf;
 	
 	public ContasDAO() {
 		emf = PersistenceManager.getIstance().getEntityManagerFactory();
-	}
-	
-	public ArrayList<Lancamento> consultarLancamento(Conta conta) {
-		return null;	
-	}
-	
-	public Conta[] consultarSaldo(Conta conta) {
-		return null;
-	}
-	
-	public ArrayList<Lancamento> faturaCartaoCredito(Conta conta) {
-		return null;
 	}
 	
 	public List<Conta> listAll() {
@@ -92,6 +78,12 @@ public class ContasDAO {
 		}
 	}
 	
+	/**
+	 * Método resposável por fazer a exclusão de uma conta no banco.
+	 * 
+	 * @param id
+	 * @throws PSQLException Caso exista o id da conta associado a um lançamento/transferência
+	 */
 	public void remove(int id) throws PSQLException {
 		EntityManager entityManager = emf.createEntityManager();
 		try {

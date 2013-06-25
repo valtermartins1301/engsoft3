@@ -1,14 +1,16 @@
-01 - MÈtodo confirmarExclus„o() n„o ser· utilizado em Conta e Transferencia.
-02 - MÈtodo consultarLancamentos(), ConsultarSaldo(), FaturaCartaoCredito n„o ser„o utilizados.
-03 - O MÈtodo listAll() foi adicionado tanto em ContasDAO quanto em TransferenciasDAO para buscar todas as contas e transferencias respectivamente.
-04 - Em TransferenciasController e ContasController foi adicionado um mÈtodo listar para mandar as contas e transferencias as views.
-05 - nomePessoa na classe Pessoa n„o È int È String.
-06 - Em uma transferencia a contaCorrente na classe lanÁamento È considerada como contaOrigem.
-07 - Toda transferencia È considerada como tipo de lanÁamento igual a "SaÌda"
-08 - Foi utilizado um usu·rio padr„o com id = 1
-09 - PessoaDAO sÛ implementa o mÈtodo buscarPessoaPeloId().
-10 - Banco j· È prÈ cadastrado no banco de dados e ele sÛ implementa dois mÈtodo: listAll() e buscarBancoPeloId();
-11 - TipoLancamentoDAO È prÈ cadastrado no banco de dados. SÛ implementa o mÈtodo buscarTipoLancamentoPeloId();
-12 - TransferenciasController e ContasController est· utilizando framework Spring MVC.
-13 - SÌmbolo 'R$' n„o foi implementado no campo 'valor' na tela de transferÍncia pois o plugin jQuery utilizado n„o suporta sÌmbolos.
-14 - M·scara de agÍncia n„o implementada pois diferentes bancos possuem quantidade de digitos para 'conta' e 'agÍncia' diferentes. Implementada limitaÁ„o de cadastro somente para n˙meros.
+01 - M√©todo confirmarExclusao() n√£o ser√° utilizado em Conta e Transferencia.
+02 - M√©todos consultarLancamentos(), ConsultarSaldo(), faturaCartaoCredito() n√£o ser√£o utilizados.
+03 - O M√©todo listAll() foi adicionado tanto em ContasDAO, BancoDAO e TransferenciaDAO para buscar todos os registros.
+04 - Em TransferenciasController e ContasController foi adicionado um m√©todo listar para mandar os registros para as views.
+05 - O atributo nomePessoa na classe Pessoa foi trocado de int para String.
+06 - Em uma transfer√™ncia ao atributo contaCorrente na classe Lancamento √© considerado como conta origem.
+07 - Toda transfer√™ncia √© considerada como tipo de lan√ßamento igual a "Sa√≠da"
+08 - Foi utilizado um usu√°rio padr√£o com id = 1
+09 - PessoaDAO s√≥ implementa o m√©todo buscarPessoaPeloId().
+10 - Banco j√° √© pr√© cadastrado no banco de dados e ele s√≥ implementa dois m√©todos: listAll() e buscarBancoPeloId();
+11 - TipoLancamentoDAO √© pr√© cadastrado no banco de dados. S√≥ implementa o m√©todo buscarTipoLancamentoPeloId();
+12 - TransferenciasController e ContasController est√° utilizando o framework Spring MVC.
+13 - S√≠mbolo 'R$' n√£o foi implementado no campo 'valor' na tela de transfer√™ncia pois o plugin jQuery utilizado n√£o suporta s√≠mbolos.
+14 - M√°scara de n√∫mero ag√™ncia e n√∫mero conta n√£o implementada pois diferentes bancos possuem quantidade de d√≠gitos para 'conta' e 'ag√™ncia' diferentes. Implementada limita√ß√£o de cadastro/edi√ß√£o somente para n√∫meros.
+15 - Na confirma√ß√£o da exclus√£o de um registro, as op√ß√µes 'Ok' e 'Cancelar' aparecem devido ao padr√£o do confirm() do javascript.
+16 - Na exclus√£o de uma conta, caso a mesma esteja associada a uma transfer√™ncia, n√£o ser√° poss√≠vel exclu√≠-la. A pr√≥pria modelagem n√£o indica que precisava fazer a exclus√£o ou n√£o da conta nesse caso, sendo isso informado ao usu√°rio para excluir os lan√ßamentos associados primeiro.

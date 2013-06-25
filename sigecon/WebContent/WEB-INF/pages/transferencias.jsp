@@ -19,9 +19,11 @@ function adicionar() {
 		    url: "salvaTransferencia",  
 		    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
 		    + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
-		    success: function(response){  
-		      window.location = "listagemTransferencias";
-		      alert("Registro salvo com sucesso!");
+		    success: function(response){
+		      if (response == "sucesso") {
+			      window.location = "listagemTransferencias";
+			      alert("Registro salvo com sucesso!");
+		      }
 		    }  
 		  });
 	  }	else {
@@ -92,8 +94,10 @@ function editar(id) {
 		    data: "idContaOrigem=" + idContaOrigem + "&idContaDestino=" + idContaDestino + "&data=" + data 
 		    + "&codLancamento=" + id + "&motivoLancamento=" + motivo + "&valorLancamento=" + valor,  
 		    success: function(response){  
-		      window.location = "listagemTransferencias";
-		      alert("Registro editado com sucesso!");
+		      if (response == "sucesso") {
+			      window.location = "listagemTransferencias";
+			      alert("Registro editado com sucesso!");
+		      }
 		    }  
 		  });
 	} else {
@@ -109,8 +113,10 @@ function excluir(id) {
 	    url: "excluiTransferencia",  
 	    data: "idTransferencia=" + id,
 	    success: function(response) {  
-	    	window.location = "listagemTransferencias";
-			alert("Registro excluído com sucesso!");
+			if (response == "sucesso") {
+		    	window.location = "listagemTransferencias";
+				alert("Registro excluído com sucesso!");
+			}
 	    }  
 	  });
 	}

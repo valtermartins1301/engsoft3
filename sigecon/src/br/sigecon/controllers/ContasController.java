@@ -35,6 +35,14 @@ public class ContasController {
 		return "contas";
 	}
 	
+	/**
+	 * Método responsável por receber uma requisição do tipo post e salvar uma conta.
+	 * 
+	 * @param idBanco
+	 * @param conta
+	 * @param result Resultado da requisição
+	 * @return Retorna uma resposta para a requisição
+	 */
 	@RequestMapping(value="salvaConta", method = RequestMethod.POST)
 	public @ResponseBody String salvaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
@@ -50,9 +58,17 @@ public class ContasController {
 			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 			contasDAO.persist(conta);
 		}
-		return "";
+		return "sucesso";
 	}
 	
+	/**
+	 * Método responsável por receber uma requisição do tipo post e editar uma conta.
+	 * 
+	 * @param idBanco
+	 * @param conta
+	 * @param result Resultado da requisição
+	 * @return Retorna uma resposta para a requisição
+	 */
 	@RequestMapping(value="editaConta", method = RequestMethod.POST)
 	public @ResponseBody String editaConta(@RequestParam("idBanco") int idBanco, @ModelAttribute(value="conta") Conta conta, BindingResult result) {		
 		if (!result.hasErrors()) {
@@ -68,19 +84,25 @@ public class ContasController {
 			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
 			contasDAO.merge(conta);
 		}
-		return "";
+		return "sucesso";
 	}
 	
+	/**
+	 * Método responsável por receber uma requisição do tipo post e excluir uma conta. 
+	 * A mesma só pode ser excluída quando não existe nenhum lançamento/transferência associado a ela.
+	 * 
+	 * @param idConta
+	 * @return Retorna uma resposta para a requisição
+	 */
 	@RequestMapping(value = "excluiConta", method = RequestMethod.POST)
 	public @ResponseBody String excluiConta(@RequestParam("idConta") int idConta) {
-			ContasDAO contasDAO = FactoryDAO.criarContasDAO();
-			
-				try {
-					contasDAO.remove(idConta);
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "erroAssociacao";
-				}
+		ContasDAO contasDAO = FactoryDAO.criarContasDAO();
+		try {
+			contasDAO.remove(idConta);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "erroAssociacao";
+		}
 		return "sucesso";
 	}
 }

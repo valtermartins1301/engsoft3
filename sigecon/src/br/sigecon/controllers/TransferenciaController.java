@@ -21,7 +21,6 @@ import br.sigecon.beans.Transferencia;
 import br.sigecon.daos.ContasDAO;
 import br.sigecon.daos.TipoLancamentoDAO;
 import br.sigecon.daos.TransferenciaDAO;
-import br.sigecon.util.DateUtil;
 import br.sigecon.util.FactoryDAO;
 @Controller
 public class TransferenciaController {
@@ -38,7 +37,18 @@ public class TransferenciaController {
 		
 		return "transferencias";
 	}
-	
+
+	/**
+	 * Método responsável por receber uma requisição do tipo post e salvar uma transferência.
+	 * 
+	 * @param idContaOrigem
+	 * @param idContaDestino
+	 * @param data
+	 * @param transferencia
+	 * @param result Resultado da requisição
+	 * @return Retorna uma resposta para a requisição
+	 * @throws ParseException Caso dê erro com a conversão de String em Date
+	 */
 	@RequestMapping(value="salvaTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String salvaTransferencia(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
 			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) throws ParseException {		
@@ -60,9 +70,20 @@ public class TransferenciaController {
 			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.persist(transferencia);
 		}
-		return "";
+		return "sucesso";
 	}
 	
+	/**
+	 * Método responsável por receber uma requisição do tipo post e editar uma transferência.
+	 * 
+	 * @param idContaOrigem
+	 * @param idContaDestino
+	 * @param data
+	 * @param transferencia
+	 * @param result Resultado da requisição
+	 * @return Retorna uma resposta para a requisição
+	 * @throws ParseException Caso dê erro com a conversão de String em Date
+	 */
 	@RequestMapping(value="editaTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String editar(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
 			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) throws ParseException {		
@@ -84,13 +105,13 @@ public class TransferenciaController {
 			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.merge(transferencia);
 		}
-		return "";
+		return "sucesso";
 	}
 	
 	@RequestMapping(value = "excluiTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String excluir(@RequestParam("idTransferencia") int idTransferencia) {
 			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
 			transferenciaDAO.remove(idTransferencia);
-		return "";
+		return "sucesso";
 	}
 }
