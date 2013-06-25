@@ -12,6 +12,8 @@ function adicionar() {
 	  var valor = $('#valor').val();
 	  
 	  if (validarCampos(data, motivo, idContaOrigem, idContaDestino, valor)) {
+		  $('#dataLancamento').data('mask').remove();
+		  data = $('#dataLancamento').val();
 		  $.ajax({  
 		    type: "POST",  
 		    url: "salvaTransferencia",  
@@ -24,6 +26,7 @@ function adicionar() {
 		  });
 	  }	else {
 		  $('#valor').mask('000.000.000.000.000,00',{reverse: true});
+		  $('#dataLancamento').mask('00/00/0000',{reverse: true});
 	  }  
 	};
 	
@@ -37,7 +40,7 @@ function habilitarCampos(id) {
 			var value = $(this).text();
 			
 			if (contador == 0) {
-				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' placeholder='Data' type='date' maxlength='8' id='dataLancamento' value='" + value + "'/>");			
+				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' placeholder='Data' type='text' maxlength='8' id='dataLancamento' value='" + value + "'/>");			
 			} else if (contador == 1) {
 				$(this).html("<input style='height:40px;font-size:13pt;' class='input-large' class='input-large' type='text' placeholder='Motivo' maxlength='50' id='motivoLancamento' value='" + value + "'/>");
 			} else if (contador == 2) {
@@ -51,7 +54,7 @@ function habilitarCampos(id) {
 		});
 	
 		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
-		
+		$('#dataLancamento').mask('00/00/0000',{reverse: true});
 		$('#contaOrigem').find('option').clone().appendTo('#contaOrigem2');
 		$('#contaDestino').find('option').clone().appendTo('#contaDestino2');
 		$("#editar_" + id).html("<input type='button' class='btn btn-primary' onclick='editar(" + id + ")' style='font-weight: bold;font-size:15pt;' value='+' />");
@@ -66,13 +69,13 @@ function editar(id) {
 	$('#valor').data('mask').remove();
 	var valor;
 	
-	data = $("#linha_" + id).find('input[type="date"]').val();
+	data = $("#linha_" + id).find('input[id="dataLancamento"]').val();
  
 	var contador = 0;
 	$("#linha_" + id).find('input[type="text"]').each(function() {
-		if (contador == 0) {
+		if (contador == 1) {
 			motivo = $(this).val();
-		} else if (contador == 1) {
+		} else if (contador == 2) {
 			valor = $(this).val();
 		}
 		contador++;
@@ -81,6 +84,8 @@ function editar(id) {
 	idContaDestino = $("#contaDestino2").val();
 
 	if (validarCampos(data, motivo, idContaOrigem, idContaDestino, valor)) {
+		$('#dataLancamento').data('mask').remove();
+		data = $("#linha_" + id).find('input[id="dataLancamento"]').val();
 		$.ajax({  
 		    type: "POST",
 		    url: "editaTransferencia",  
@@ -93,6 +98,7 @@ function editar(id) {
 		  });
 	} else {
 		$('#valor').mask('000.000.000.000.000,00',{reverse: true});
+		$('#dataLancamento').mask('00/00/0000',{reverse: true});
 	}
 };
 
@@ -112,6 +118,11 @@ function excluir(id) {
 
 function validarCampos(dataLancamento, motivo, idContaOrigem, idContaDestino, valor) {
 	var mensagem = "";
+	var data="";
+	
+	if ((data=validarData(dataLancamento)) != ""){
+	    mensagem += data;
+	}
 	
 	if (dataLancamento == "") {
 		mensagem += "O campo data de lançamento não pode estar em branco!\n";
@@ -137,8 +148,39 @@ function validarCampos(dataLancamento, motivo, idContaOrigem, idContaDestino, va
 	return true;
 };
 
+function validarData(DATA) {
+    var msgErro = 'Data inválida.\n';
+    var mensagem = "";
+    if ((DATA.length == 10) && (DATA !='')){
+     var dia = DATA.substring(0,2);
+     var mes = DATA.substring(3,5);
+     var ano = DATA.substring(6,10);
+     if(mes > 12) mensagem ="Mês inválido.\n";
+     if(dia > 31) mensagem +="Dia inválido.\n";
+     if((mes==04 && dia > 30) || (mes==06 && dia > 30) || (mes==09 && dia > 30) || (mes==11 && dia > 30)){
+       mensagem +="Dia incorreto !!! O mês especificado contém no máximo 30 dias.\n";
+       return mensagem;
+     }else{ //1
+       if(ano%4!=0 && mes==2 && dia>28){
+    	 mensagem +="Data incorreta!! O mês especificado contém no máximo 28 dias.\n";
+         return mensagem;
+         } else{ //2
+          if(ano%4==0 && mes==2 && dia>29){
+           mensagem +="Data incorreta!! O mês especificado contém no máximo 29 dias.\n";
+           return mensagem;
+           } else{ //3
+                return mensagem;
+           } //3-else
+         }//2-else
+       }//1-else                       
+   }else { //5
+	 mensagem =msgErro;
+     return mensagem;
+  }//5-else
+}
+
 $(document).ready(function(){
-	//$('#dataLancamento').mask('00/00/0000');	
+	$('#dataLancamento').mask('00/00/0000',{reverse: true});	
 	$('#valor').mask('000.000.000.000.000,00',{reverse: true});
 	$('.valortransferencia').mask('000.000.000.000.000,00',{reverse: true}); 		
 });
@@ -194,7 +236,7 @@ $(document).ready(function(){
 	    </div>
     </div>
     <form name="cadastro_transferencia">
-       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="date" maxlength="8" id="dataLancamento">
+       <input style="height:40px;font-size:13pt;" class="input-large" placeholder="Data" type="text" maxlength="8" id="dataLancamento">
 	   <input style="height:40px;font-size:13pt;" class="input-large" class="input-large" type="text" placeholder="Motivo" maxlength="50" id="motivoLancamento">
 	     <select id="contaOrigem" style="height:40px;font-size:13pt;" class="input-large">
 			<c:forEach var="conta" items="${contas}">

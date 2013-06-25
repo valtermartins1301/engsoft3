@@ -10,3 +10,5 @@
 10 - Banco já é pré cadastrado no banco de dados e ele só implementa dois método: listAll() e buscarBancoPeloId();
 11 - TipoLancamentoDAO é pré cadastrado no banco de dados. Só implementa o método buscarTipoLancamentoPeloId();
 12 - TransferenciasController e ContasController está utilizando framework Spring MVC.
+13 - Símbolo 'R$' não foi implementado no campo 'valor' na tela de transferência pois o plugin jQuery utilizado não suporta símbolos.
+14 - Máscara de agência não implementada pois diferentes bancos possuem quantidade de digitos para 'conta' e 'agência' diferentes. Implementada limitação de cadastro somente para números.

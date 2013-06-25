@@ -1,5 +1,7 @@
 package br.sigecon.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class TransferenciaController {
 	
 	@RequestMapping(value="salvaTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String salvaTransferencia(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
-			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
+			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) throws ParseException {		
 		if (!result.hasErrors()) {
 			ContasDAO contaDAO = FactoryDAO.criarContasDAO();
 			ContaCorrente contaOrigem = contaDAO.buscarContaPeloId(idContaOrigem);
@@ -48,7 +50,8 @@ public class TransferenciaController {
 			TipoLancamentoDAO tipoLancamentoDAO = FactoryDAO.criarTipoLancamentoDAO();
 			TipoLancamento tipoLancamento = tipoLancamentoDAO.buscarTipoLancamentoPeloId(2);
 			
-			Date dataLancamento = DateUtil.parseStringToDate(data);
+			SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+			Date dataLancamento = format.parse(data);
 			transferencia.setDataLancamento(dataLancamento);
 			transferencia.setContaCorrente(contaOrigem);
 			transferencia.setContaDestino(contaDestino);
@@ -62,7 +65,7 @@ public class TransferenciaController {
 	
 	@RequestMapping(value="editaTransferencia", method = RequestMethod.POST)
 	public @ResponseBody String editar(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
-			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) {		
+			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) throws ParseException {		
 		if (!result.hasErrors()) {
 			ContasDAO contaDAO = FactoryDAO.criarContasDAO();
 			ContaCorrente contaOrigem = contaDAO.buscarContaPeloId(idContaOrigem);
@@ -71,7 +74,8 @@ public class TransferenciaController {
 			TipoLancamentoDAO tipoLancamentoDAO = FactoryDAO.criarTipoLancamentoDAO();
 			TipoLancamento tipoLancamento = tipoLancamentoDAO.buscarTipoLancamentoPeloId(2);
 			
-			Date dataLancamento = DateUtil.parseStringToDate(data);
+			SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+			Date dataLancamento = format.parse(data);
 			transferencia.setDataLancamento(dataLancamento);
 			transferencia.setContaCorrente(contaOrigem);
 			transferencia.setContaDestino(contaDestino);
