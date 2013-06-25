@@ -73,11 +73,15 @@ public class TransferenciaDAO {
 		try {
 			EntityTransaction transaction = entityManager.getTransaction();
 			try {
-				transaction.begin();
 				Transferencia transferencia = entityManager.find(Transferencia.class, id);
 				
-				entityManager.remove(transferencia);
-				transaction.commit();
+				if (transferencia != null) {
+					transaction.begin();
+					
+					entityManager.remove(transferencia);
+
+					transaction.commit();
+				}
 			} finally {
 				if (transaction.isActive()) {
 					transaction.rollback();
@@ -86,34 +90,5 @@ public class TransferenciaDAO {
 		} finally {
 			entityManager.close();
 		}
-	}
-	
-	public Transferencia buscarTransferenciaPeloId(int id) {
-		EntityManager entityManager = emf.createEntityManager();
-		Transferencia transferencia = null;
-		try {
-			EntityTransaction transaction = entityManager.getTransaction();
-			try {
-				transaction.begin();
-				
-				transferencia = entityManager.find(Transferencia.class, id);
-				transferencia.setCodLancamento(transferencia.getCodLancamento());
-				transferencia.setContaCorrente(transferencia.getContaCorrente());
-				transferencia.setContaDestino(transferencia.getContaDestino());
-				transferencia.setDataLancamento(transferencia.getDataLancamento());
-				transferencia.setMotivoLancamento(transferencia.getMotivoLancamento());
-				transferencia.setTipoLancamento(transferencia.getTipoLancamento());
-				transferencia.setValorLancamento(transferencia.getValorLancamento());
-				
-				transaction.commit();
-			} finally {
-				if (transaction.isActive()) {
-					transaction.rollback();
-				}
-			}
-		} finally {
-			entityManager.close();
-		}		
-		return transferencia;
 	}
 }

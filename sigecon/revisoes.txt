@@ -1,5 +1,5 @@
 01 - Método confirmarExclusao() não será utilizado em Conta e Transferencia.
-02 - Métodos consultarLancamentos(), ConsultarSaldo(), faturaCartaoCredito() não serão utilizados.
+02 - Métodos consultarLancamentos(), ConsultarSaldo(), faturaCartaoCredito() não farão parte do ContasDAO.
 03 - O Método listAll() foi adicionado tanto em ContasDAO, BancoDAO e TransferenciaDAO para buscar todos os registros.
 04 - Em TransferenciasController e ContasController foi adicionado um método listar para mandar os registros para as views.
 05 - O atributo nomePessoa na classe Pessoa foi trocado de int para String.
@@ -14,3 +14,4 @@
 14 - Máscara de número agência e número conta não implementada pois diferentes bancos possuem quantidade de dígitos para 'conta' e 'agência' diferentes. Implementada limitação de cadastro/edição somente para números.
 15 - Na confirmação da exclusão de um registro, as opções 'Ok' e 'Cancelar' aparecem devido ao padrão do confirm() do javascript.
 16 - Na exclusão de uma conta, caso a mesma esteja associada a uma transferência, não será possível excluí-la. A própria modelagem não indica que precisava fazer a exclusão ou não da conta nesse caso, sendo isso informado ao usuário para excluir os lançamentos associados primeiro.
+17 - Devido a alguns problemas de mapeamento, nada é inserido na tabela contas_lancamentos, sendo esta gerada pelo mapeamento entre ContaCorrente e uma lista de lançamentos.
