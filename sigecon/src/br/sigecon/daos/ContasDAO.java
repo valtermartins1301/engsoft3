@@ -22,7 +22,7 @@ public class ContasDAO {
 	public List<Conta> listAll() {
 		EntityManager entityManager = emf.createEntityManager();
 		try {
-			return entityManager.createQuery("from Conta", Conta.class).getResultList();
+			return entityManager.createQuery("from Conta c order by c.codConta", Conta.class).getResultList();
 		} finally {
 			entityManager.close();
 		}

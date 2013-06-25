@@ -18,7 +18,7 @@ public class TransferenciaDAO {
 	public List<Transferencia> listAll() {
 		EntityManager entityManager = emf.createEntityManager();
 		try {
-			return entityManager.createQuery("from Transferencia", Transferencia.class).getResultList();
+			return entityManager.createQuery("from Transferencia t order by t.codLancamento", Transferencia.class).getResultList();
 		} finally {
 			entityManager.close();
 		}
